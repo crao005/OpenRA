@@ -1,6 +1,6 @@
 # GammaCrux fork
 
-* Repository:[https://travis-ci.org/veniora/OpenRA](https://travis-ci.org/veniora/OpenRA) [![Build Status](https://travis-ci.org/veniora/OpenRA.png?branch=bleed)](https://travis-ci.org/veniora/OpenRA)
+* Repository:[https://github.com/veniora/OpenRA]https://github.com/veniora/OpenRA) [![Build Status](https://travis-ci.org/veniora/OpenRA.png?branch=bleed)](https://travis-ci.org/veniora/OpenRA)
 
 <hr/>
 
