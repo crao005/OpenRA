@@ -18,5 +18,5 @@ branches:
    - bleed
 
 # Notify developers when needed.
-notifications:
-  irc: "irc.freenode.net#openra"
+#notifications:
+  #irc: "irc.freenode.net#openra"
