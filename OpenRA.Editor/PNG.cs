@@ -257,6 +257,7 @@ namespace OpenRA.Editor
             var src = textBox1.Text;
             String[] arg = new String[] { "--shp",src, "32" };
             Command.ConvertPngToShp(arg);
+            MessageBox.Show("Success!!");
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -264,6 +265,7 @@ namespace OpenRA.Editor
             var src = textBox1.Text;
             String[] arg = new String[] { "--shp", src, "32" };
             Command.ConvertPngToShp(arg);
+            MessageBox.Show("Success!!");
         }
 
        
