@@ -54,7 +54,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 				panel.Get<LabelWidget>("MAP_NAME").GetText = () => map.Title;
 			}
 
-			panel.Get<TextFieldWidget>("PLAYER_NAME").Text = settings.Server.Name ?? "";
+            panel.Get<TextFieldWidget>("PLAYER_NAME").Text = "Name";//settings.Server.Name ?? "";
 		}
 
 		void CreateAndJoin()
