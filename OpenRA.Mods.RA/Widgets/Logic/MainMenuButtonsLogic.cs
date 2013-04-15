@@ -22,7 +22,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			rootMenu = widget;
 
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenGamePanel("CREATESERVER_BG");
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenGamePanel("SINGLEPLAYER_BG");
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");

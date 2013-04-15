@@ -67,6 +67,7 @@ ChromeLayout:
 	mods/ra/chrome/modchooser.yaml
 	mods/ra/chrome/cheats.yaml
 	mods/ra/chrome/objectives.yaml
+	mods/ra/chrome/single-player.yaml
 
 Weapons:
 	mods/ra/weapons.yaml

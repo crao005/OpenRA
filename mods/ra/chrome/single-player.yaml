@@ -1,0 +1,45 @@
+Background@SINGLEPLAYER_BG:
+	Logic:SinglePlayerLogic
+	X:(WINDOW_RIGHT - WIDTH)/2
+	Y:(WINDOW_BOTTOM - HEIGHT)/2
+	Width:400
+	Height:240
+	Children:
+		Label@LABEL_TITLE:
+			X:0
+			Y:20
+			Width:400
+			Height:25
+			Text:Single Player
+			Align:Center
+			Font:Bold
+		Label@PLAYER_NAME_LABEL:
+			X:50
+			Y:59
+			Width:95
+			Height:25
+			Align: Right
+			Text:Player:
+		TextField@PLAYER_NAME:
+			X:150
+			Y:60
+			Width:210
+			MaxLength:50
+			Height:25
+			Text:Name
+		Button@START_BUTTON:
+			X:130
+			Y:PARENT_BOTTOM - 45
+			Width:120
+			Height:25
+			Text:Start
+			Font:Bold
+			Key:return
+		Button@BACK_BUTTON:
+			X:260
+			Y:PARENT_BOTTOM - 45
+			Width:120
+			Height:25
+			Text:Cancel
+			Font:Bold
+			Key:escape
