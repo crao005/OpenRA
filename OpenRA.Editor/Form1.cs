@@ -756,5 +756,16 @@ namespace OpenRA.Editor
 			eraserToolStripButton.Checked ^= true;
 			surface1.IsErasing = eraserToolStripButton.Checked;
 		}
+
+        private void translatePNGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //PNGform NewForm = new PNGform();
+            //NewForm.Show();
+            using (var nmd = new PNGform())
+            {
+
+                nmd.ShowDialog();
+            }
+        }
 	}
 }

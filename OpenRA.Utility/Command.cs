@@ -529,5 +529,24 @@ namespace OpenRA.Utility
 			Console.WriteLine();
 			Console.WriteLine("```");
 		}
+
+        static void Resize(string imageFile, string outputFile)
+        {
+            using (var srcImage = Image.FromFile(imageFile))
+            {
+                var newWidth = (int)(srcImage.Width * 16);
+                var newHeight = (int)(srcImage.Height * 16);
+                using (var newImage = new Bitmap(newWidth, newHeight))
+                using (var graphics = System.Drawing.Graphics.FromImage(newImage))
+                {
+                    graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                    graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                    graphics.DrawImage(srcImage, new Rectangle(0, 0, newWidth, newHeight));
+
+                    newImage.Save(outputFile);
+                }
+            }
+        }
 	}
 }
