@@ -3,7 +3,7 @@ Background@SINGLEPLAYER_BG:
 	X:(WINDOW_RIGHT - WIDTH)/2
 	Y:(WINDOW_BOTTOM - HEIGHT)/2
 	Width:400
-	Height:240
+	Height:510
 	Children:
 		Label@LABEL_TITLE:
 			X:0
@@ -14,21 +14,40 @@ Background@SINGLEPLAYER_BG:
 			Align:Center
 			Font:Bold
 		Label@PLAYER_NAME_LABEL:
-			X:50
-			Y:59
-			Width:95
+			X:45
+			Y:60
+			Width:55
 			Height:25
-			Align: Right
+			Align: Left
 			Text:Player:
 		TextField@PLAYER_NAME:
-			X:150
+			X:100
 			Y:60
-			Width:210
+			Width:255
 			MaxLength:50
 			Height:25
 			Text:Name
+		MapPreview@MAP_PREVIEW:
+			X:45
+			Y:100
+			Width:310
+			Height:310
+		Label@MAP_NAME:
+			X:45
+			Y:PARENT_BOTTOM - 85
+			Width:95
+			Height:25
+			Align: Left
+			Text:Map Name
+		Button@MAP_BUTTON:
+			X:235
+			Y:PARENT_BOTTOM - 85
+			Width:120
+			Height:25
+			Text:Select Mission
+			Font:Bold
 		Button@START_BUTTON:
-			X:130
+			X:45
 			Y:PARENT_BOTTOM - 45
 			Width:120
 			Height:25
@@ -36,7 +55,7 @@ Background@SINGLEPLAYER_BG:
 			Font:Bold
 			Key:return
 		Button@BACK_BUTTON:
-			X:260
+			X:235
 			Y:PARENT_BOTTOM - 45
 			Width:120
 			Height:25
