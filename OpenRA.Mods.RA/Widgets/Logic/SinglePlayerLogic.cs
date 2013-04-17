@@ -12,31 +12,32 @@ using System;
 using System.Net;
 using OpenRA.GameRules;
 using OpenRA.Widgets;
+using OpenRA.Network;
 
 namespace OpenRA.Mods.RA.Widgets.Logic
 {
 	public class SinglePlayerLogic
 	{
 		Widget panel;
-		Action onCreate;
+        OrderManager orderManager;
+		Action onStart;
 		Action onExit;
-		Map map;
-		bool advertiseOnline;
-		bool allowUPnP;
+        Map map;
+		
 
 		[ObjectCreator.UseCtor]
-        public SinglePlayerLogic(Widget widget, Action onExit, Action openLobby)
+        public SinglePlayerLogic(Widget widget, OrderManager orderManager, Action onExit, Action onStart)
 		{
 			panel = widget;
-			onCreate = openLobby;
+            this.orderManager = orderManager;
+            this.onStart = onStart;
 			this.onExit = onExit;
 
 			var settings = Game.Settings;
 			panel.Get<ButtonWidget>("BACK_BUTTON").OnClick = () => { Ui.CloseWindow(); onExit(); };
 			panel.Get<ButtonWidget>("START_BUTTON").OnClick = CreateAndJoin;
 
-			map = Game.modData.AvailableMaps[ WidgetUtils.ChooseInitialMap(Game.Settings.Server.Map) ];
-
+            /*
 			var mapButton = panel.GetOrNull<ButtonWidget>("MAP_BUTTON");
 			if (mapButton != null)
 			{
@@ -53,26 +54,19 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 				panel.Get<MapPreviewWidget>("MAP_PREVIEW").Map = () => map;
 				panel.Get<LabelWidget>("MAP_NAME").GetText = () => map.Title;
 			}
-
-            panel.Get<TextFieldWidget>("PLAYER_NAME").Text = "Name";//settings.Server.Name ?? "";
+            */
+            panel.Get<TextFieldWidget>("PLAYER_NAME").Text = "Name";
 		}
 
 		void CreateAndJoin()
 		{
-			var name = panel.Get<TextFieldWidget>("PLAYER_NAME").Text;
-			
-			// Save new settings
-			Game.Settings.Server.Name = name;
-			Game.Settings.Server.Map = map.Uid;
-			Game.Settings.Save();
+            /*
+            Game.Settings.Server.Name = panel.Get<TextFieldWidget>("PLAYER_NAME").Text;
+            Game.Settings.Server.Map = map.Uid;
 
-			// Take a copy so that subsequent changes don't affect the server
-			var settings = new ServerSettings(Game.Settings.Server);
-
-			// Create and join the server
-			Game.CreateServer(settings);
-			Ui.CloseWindow();
-			ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort, onCreate, onExit);
+            Game.Settings.Save();
+            */
+            orderManager.IssueOrder(Order.Command("startgame"));
 		}
 	}
 }

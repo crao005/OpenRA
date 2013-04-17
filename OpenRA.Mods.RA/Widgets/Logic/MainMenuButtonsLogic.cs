@@ -8,7 +8,9 @@
  */
 #endregion
 
+using OpenRA.GameRules;
 using OpenRA.Widgets;
+using System.Net;
 
 namespace OpenRA.Mods.RA.Widgets.Logic
 {
@@ -22,7 +24,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			rootMenu = widget;
 
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenGamePanel("SINGLEPLAYER_BG");
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenSinglePlayerPanel();
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");
@@ -68,5 +70,37 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 				{ "addBots", false }
 			});
 		}
+
+        void OpenSinglePlayerPanel()
+        {
+            Map map = Game.modData.AvailableMaps[WidgetUtils.ChooseInitialMap(Game.Settings.Server.Map)];
+
+            // Save new settings
+            Game.Settings.Server.Name = "Single Player";
+            Game.Settings.Server.Map = map.Uid;
+
+            //Auto-set settings
+            Game.Settings.Server.ListenPort = 1234;
+            Game.Settings.Server.ExternalPort = 1234;
+            Game.Settings.Server.AdvertiseOnline = false;
+            Game.Settings.Server.AllowUPnP = false;
+
+            Game.Settings.Save();
+
+            // Take a copy so that subsequent changes don't affect the server
+            var settings = new ServerSettings(Game.Settings.Server);
+
+            // Create and join the server
+            Game.CreateServer(settings);
+            Ui.CloseWindow();
+            ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort, 
+                () => Game.OpenWindow("SINGLEPLAYER_BG", new WidgetArgs()
+                {
+                    { "onExit", () => {} },
+                    { "onStart", RemoveShellmapUI }
+                }), 
+                () => { });
+
+        }
 	}
 }
