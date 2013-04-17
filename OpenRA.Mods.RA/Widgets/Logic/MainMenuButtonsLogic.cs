@@ -90,9 +90,9 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             // Take a copy so that subsequent changes don't affect the server
             var settings = new ServerSettings(Game.Settings.Server);
 
-            // Create and join the server
+            // Create the server
             Game.CreateServer(settings);
-            Ui.CloseWindow();
+
             ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort, 
                 () => Game.OpenWindow("SINGLEPLAYER_BG", new WidgetArgs()
                 {

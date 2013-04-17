@@ -34,38 +34,45 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			this.onExit = onExit;
 
 			var settings = Game.Settings;
-			panel.Get<ButtonWidget>("BACK_BUTTON").OnClick = () => { Ui.CloseWindow(); onExit(); };
-			panel.Get<ButtonWidget>("START_BUTTON").OnClick = CreateAndJoin;
 
-            /*
+			panel.Get<ButtonWidget>("BACK_BUTTON").OnClick = () => { Ui.CloseWindow(); onExit(); };
+			panel.Get<ButtonWidget>("START_BUTTON").OnClick = StartGame;
+
+
+            Map map = Game.modData.AvailableMaps[WidgetUtils.ChooseInitialMap(Game.Settings.Server.Map)];
+            
 			var mapButton = panel.GetOrNull<ButtonWidget>("MAP_BUTTON");
 			if (mapButton != null)
 			{
-				panel.Get<ButtonWidget>("MAP_BUTTON").OnClick = () =>
-				{
-					Ui.OpenWindow("MAPCHOOSER_PANEL", new WidgetArgs()
-					{
-						{ "initialMap", map.Uid },
-						{ "onExit", () => {} },
-						{ "onSelect", (Action<Map>)(m => map = m) }
-					});
-				};
+                mapButton.OnClick = () =>
+                    {
+                        var onSelect = new Action<Map>(m =>
+                        {
+                            map = m;
+                            orderManager.IssueOrder(Order.Command("map " + map.Uid));
+                            Game.Settings.Server.Map = map.Uid;
+                            Game.Settings.Save();
+                        });
 
-				panel.Get<MapPreviewWidget>("MAP_PREVIEW").Map = () => map;
-				panel.Get<LabelWidget>("MAP_NAME").GetText = () => map.Title;
+                        Ui.OpenWindow("MAPCHOOSER_PANEL", new WidgetArgs()
+				        {
+					        { "initialMap", map.Uid },
+					        { "onExit", () => {} },
+					        { "onSelect", onSelect }
+				        });
+                    };
+
 			}
-            */
+            
+            panel.Get<MapPreviewWidget>("MAP_PREVIEW").Map = () => map;
+            panel.Get<LabelWidget>("MAP_NAME").GetText = () => map.Title;
+
             panel.Get<TextFieldWidget>("PLAYER_NAME").Text = "Name";
 		}
 
-		void CreateAndJoin()
+		void StartGame()
 		{
-            /*
-            Game.Settings.Server.Name = panel.Get<TextFieldWidget>("PLAYER_NAME").Text;
-            Game.Settings.Server.Map = map.Uid;
-
-            Game.Settings.Save();
-            */
+            
             orderManager.IssueOrder(Order.Command("startgame"));
 		}
 	}
