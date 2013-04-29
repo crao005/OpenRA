@@ -73,10 +73,10 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
         void OpenSinglePlayerPanel()
         {
-            //Map map = Game.modData.AvailableMaps[WidgetUtils.ChooseInitialMap(Game.Settings.Server.Map)];
-
             // Save new settings
             Game.Settings.Server.Name = "Single Player";
+
+            // Begin with Allies 01
             Game.Settings.Server.Map = "bf46386b1c8e1618088d3c495d5beb93cac461f6";
 
             //Auto-set settings
@@ -96,7 +96,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort,
                 () => Game.OpenWindow("SINGLEPLAYER_BG", new WidgetArgs()
                 {
-                    { "onExit", () => {Game.Disconnect();} },
+                    // NOTE: These aren't used because single player logic no longer requires them.
+                    { "onExit", () => { Game.Disconnect(); } },
                     { "onStart", RemoveShellmapUI }
                   
                 }),
