@@ -263,6 +263,13 @@ Container@OBSERVER_ROOT:
 					Height:25
 					Font:Bold
 					Text:Observe
+				Button@POSTGAME_CONTINUE:
+					X:(PARENT_LEFT + 10)
+					Y:(PARENT_BOTTOM - HEIGHT - 10)
+					Width:150
+					Height:25
+					Font:Bold
+					Text:Continue
 				Button@POSTGAME_QUIT:
 					X:(PARENT_RIGHT - WIDTH - 10)
 					Y:(PARENT_BOTTOM - HEIGHT - 10)

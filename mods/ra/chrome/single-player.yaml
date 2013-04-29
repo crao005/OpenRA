@@ -2,6 +2,14 @@ Background@SINGLEPLAYER_BG:
 	Logic:SinglePlayerLogic
 	X:(WINDOW_RIGHT - WIDTH)/2
 	Y:(WINDOW_BOTTOM - HEIGHT)/2
-	Width:0
-	Height:0
+	Width:200
+	Height:60
 	Children:
+		Label@INITIALIZING_TEXT
+			X:50
+			Y:10
+			Width:50
+			Height:25
+			Text:Initializing...
+			Align:Center
+			Font:Bold
