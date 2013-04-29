@@ -73,11 +73,11 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
         void OpenSinglePlayerPanel()
         {
-            Map map = Game.modData.AvailableMaps[WidgetUtils.ChooseInitialMap(Game.Settings.Server.Map)];
+            //Map map = Game.modData.AvailableMaps[WidgetUtils.ChooseInitialMap(Game.Settings.Server.Map)];
 
             // Save new settings
             Game.Settings.Server.Name = "Single Player";
-            Game.Settings.Server.Map = map.Uid;
+            Game.Settings.Server.Map = "bf46386b1c8e1618088d3c495d5beb93cac461f6";
 
             //Auto-set settings
             Game.Settings.Server.ListenPort = 1234;

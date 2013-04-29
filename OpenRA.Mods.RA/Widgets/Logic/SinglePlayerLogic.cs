@@ -18,62 +18,27 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 {
 	public class SinglePlayerLogic
 	{
-		Widget panel;
         OrderManager orderManager;
-		Action onStart;
-		Action onExit;
-        Map map;
-		
+        System.Threading.Timer timer;
 
 		[ObjectCreator.UseCtor]
-        public SinglePlayerLogic(Widget widget, OrderManager orderManager, Action onExit, Action onStart)
+        public SinglePlayerLogic(OrderManager orderManager)
 		{
-			panel = widget;
             this.orderManager = orderManager;
-            this.onStart = onStart;
-			this.onExit = onExit;
 
-			var settings = Game.Settings;
-
-			panel.Get<ButtonWidget>("BACK_BUTTON").OnClick = () => { Ui.CloseWindow(); onExit(); };
-			panel.Get<ButtonWidget>("START_BUTTON").OnClick = StartGame;
-
-
-            Map map = Game.modData.AvailableMaps[WidgetUtils.ChooseInitialMap(Game.Settings.Server.Map)];
+            /*
+             * Allies 01: bf46386b1c8e1618088d3c495d5beb93cac461f6
+             * Allies 02: e0624a4ba15d728c02f62566523c0279cc938fe2
+             */
+             
+            timer = new System.Threading.Timer(obj => { StartGame(); }, null, 50, System.Threading.Timeout.Infinite); 
             
-			var mapButton = panel.GetOrNull<ButtonWidget>("MAP_BUTTON");
-			if (mapButton != null)
-			{
-                mapButton.OnClick = () =>
-                    {
-                        var onSelect = new Action<Map>(m =>
-                        {
-                            map = m;
-                            orderManager.IssueOrder(Order.Command("map " + map.Uid));
-                            Game.Settings.Server.Map = map.Uid;
-                            Game.Settings.Save();
-                        });
-
-                        Ui.OpenWindow("MAPCHOOSER_PANEL", new WidgetArgs()
-				        {
-					        { "initialMap", map.Uid },
-					        { "onExit", () => {} },
-					        { "onSelect", onSelect }
-				        });
-                    };
-
-			}
-            
-            panel.Get<MapPreviewWidget>("MAP_PREVIEW").Map = () => map;
-            panel.Get<LabelWidget>("MAP_NAME").GetText = () => map.Title;
-
-            panel.Get<TextFieldWidget>("PLAYER_NAME").Text = "Name";
 		}
 
-		void StartGame()
+		public void StartGame()
 		{
-            
             orderManager.IssueOrder(Order.Command("startgame"));
+            return;
 		}
 	}
 }

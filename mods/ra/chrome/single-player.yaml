@@ -2,63 +2,6 @@ Background@SINGLEPLAYER_BG:
 	Logic:SinglePlayerLogic
 	X:(WINDOW_RIGHT - WIDTH)/2
 	Y:(WINDOW_BOTTOM - HEIGHT)/2
-	Width:400
-	Height:510
+	Width:0
+	Height:0
 	Children:
-		Label@LABEL_TITLE:
-			X:0
-			Y:20
-			Width:400
-			Height:25
-			Text:Single Player
-			Align:Center
-			Font:Bold
-		Label@PLAYER_NAME_LABEL:
-			X:45
-			Y:60
-			Width:55
-			Height:25
-			Align: Left
-			Text:Player:
-		TextField@PLAYER_NAME:
-			X:100
-			Y:60
-			Width:255
-			MaxLength:50
-			Height:25
-			Text:Name
-		MapPreview@MAP_PREVIEW:
-			X:45
-			Y:100
-			Width:310
-			Height:310
-		Label@MAP_NAME:
-			X:45
-			Y:PARENT_BOTTOM - 85
-			Width:95
-			Height:25
-			Align: Left
-			Text:Map Name
-		Button@MAP_BUTTON:
-			X:235
-			Y:PARENT_BOTTOM - 85
-			Width:120
-			Height:25
-			Text:Select Mission
-			Font:Bold
-		Button@START_BUTTON:
-			X:45
-			Y:PARENT_BOTTOM - 45
-			Width:120
-			Height:25
-			Text:Start
-			Font:Bold
-			Key:return
-		Button@BACK_BUTTON:
-			X:235
-			Y:PARENT_BOTTOM - 45
-			Width:120
-			Height:25
-			Text:Cancel
-			Font:Bold
-			Key:escape
