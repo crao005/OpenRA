@@ -93,12 +93,13 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             // Create the server
             Game.CreateServer(settings);
 
-            ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort, 
+            ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort,
                 () => Game.OpenWindow("SINGLEPLAYER_BG", new WidgetArgs()
                 {
-                    { "onExit", () => {} },
+                    { "onExit", () => {Game.Disconnect();} },
                     { "onStart", RemoveShellmapUI }
-                }), 
+                  
+                }),
                 () => { });
 
         }
