@@ -23,6 +23,9 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 		{
 			rootMenu = widget;
 
+            Game.Settings.Campaign.SinglePlayer = false;
+            Game.Settings.Save();
+
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenSinglePlayerPanel();
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenLastGamePanel();
@@ -86,6 +89,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             Game.Settings.Server.AdvertiseOnline = false;
             Game.Settings.Server.AllowUPnP = false;
 
+            Game.Settings.Campaign.SinglePlayer = true;
             Game.Settings.Campaign.Name = "Allies";
             Game.Settings.Campaign.NumberOfCompletedMissions = 0;
             Game.Settings.Campaign.NextMission = "bf46386b1c8e1618088d3c495d5beb93cac461f6";

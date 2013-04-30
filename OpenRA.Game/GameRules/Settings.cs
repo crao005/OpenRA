@@ -153,6 +153,7 @@ namespace OpenRA.GameRules
              * Allies 01: bf46386b1c8e1618088d3c495d5beb93cac461f6
              * Allies 02: e0624a4ba15d728c02f62566523c0279cc938fe2
              */
+        public bool SinglePlayer = false;
         public string Name = "Allies";
         public int NumberOfCompletedMissions = 0;
         public string NextMission = "bf46386b1c8e1618088d3c495d5beb93cac461f6";
