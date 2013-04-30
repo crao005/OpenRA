@@ -25,6 +25,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenSinglePlayerPanel();
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenLastGame("LASTGAME_BG");
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");
@@ -104,5 +105,40 @@ namespace OpenRA.Mods.RA.Widgets.Logic
                 () => { });
 
         }
+
+        void OpenLastGame(string name)
+        {
+            // Save new settings
+            Game.Settings.Server.Name = "Last Game";
+
+            // Begin with Allies 02
+            Game.Settings.Server.Map = "e0624a4ba15d728c02f62566523c0279cc938fe2";
+
+            //Auto-set settings
+            Game.Settings.Server.ListenPort = 1234;
+            Game.Settings.Server.ExternalPort = 1234;
+            Game.Settings.Server.AdvertiseOnline = false;
+            Game.Settings.Server.AllowUPnP = false;
+
+            Game.Settings.Save();
+
+            // Take a copy so that subsequent changes don't affect the server
+            var settings = new ServerSettings(Game.Settings.Server);
+
+            // Create the server
+            Game.CreateServer(settings);
+
+            ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort,
+                () => Game.OpenWindow(name, new WidgetArgs()
+                {
+                    // NOTE: These aren't used because single player logic no longer requires them.
+                    { "onExit", () => { Game.Disconnect(); } },
+                    { "onStart", RemoveShellmapUI }
+                  
+                }),
+                () => { });
+
+        }
+        
 	}
 }
