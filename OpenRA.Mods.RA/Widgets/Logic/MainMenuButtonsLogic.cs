@@ -25,7 +25,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenSinglePlayerPanel();
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenLastGamePanel("LASTGAME_BG");
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenLastGamePanel();
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");
@@ -110,8 +110,9 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
         }
 
-        void OpenLastGamePanel(string name)
+        void OpenLastGamePanel()
         {
+
             // Save new settings
             Game.Settings.Server.Name = "Last Game";
 
@@ -133,9 +134,9 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             Game.CreateServer(settings);
 
             ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort,
-                () => Game.OpenWindow(name, new WidgetArgs()
+                () => Game.OpenWindow("LASTGAME_BG", new WidgetArgs()
                 {
-                    // NOTE: These aren't used because single player logic no longer requires them.
+                    // NOTE: These aren't used because continue game logic no longer requires them.
                     { "onExit", () => { Game.Disconnect(); } },
                     { "onStart", RemoveShellmapUI }
                   
