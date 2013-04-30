@@ -25,7 +25,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenSinglePlayerPanel();
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenLastGame("LASTGAME_BG");
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenLastGamePanel("LASTGAME_BG");
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");
@@ -106,7 +106,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
         }
 
-        void OpenLastGame(string name)
+        void OpenLastGamePanel(string name)
         {
             // Save new settings
             Game.Settings.Server.Name = "Last Game";
