@@ -145,11 +145,17 @@ namespace OpenRA.Mods.RA.Missions
 
 		public static void CoopMissionAccomplished(World world, string text, params Player[] players)
 		{
+
 			if (players.First().WinState != WinState.Undefined)
 				return;
 
 			foreach (var player in players)
 				player.WinState = WinState.Won;
+
+            // Added by Gamma Crux
+            Game.Settings.Campaign.Name = "Allies";
+            Game.Settings.Campaign.NumberOfCompletedMissions++;
+            Game.Settings.Save();
 
 			if (text != null)
 				Game.AddChatLine(Color.Blue, "Mission accomplished", text);

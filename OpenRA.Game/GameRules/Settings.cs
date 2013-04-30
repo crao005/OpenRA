@@ -19,153 +19,165 @@ using OpenRA.Server;
 
 namespace OpenRA.GameRules
 {
-	public enum MouseScrollType { Disabled, Standard, Inverted }
-	public enum SoundCashTicks { Disabled, Normal, Extreme }
+    public enum MouseScrollType { Disabled, Standard, Inverted }
+    public enum SoundCashTicks { Disabled, Normal, Extreme }
 
-	public class ServerSettings
-	{
-		public string Name = "OpenRA Game";
-		public int ListenPort = 1234;
-		public int ExternalPort = 1234;
-		public bool AdvertiseOnline = true;
-		public string MasterServer = "http://master.open-ra.org/";
-		public bool AllowUPnP = false;
-		public bool AllowCheats = false;
-		public string Map = null;
-		public string[] Ban = null;
-		public int TimeOut = 0;
-		public bool Dedicated = false;
-		public bool DedicatedLoop = true;
-		public bool LockBots = false;
-		public bool AllowVersionMismatch = false;
+    public class ServerSettings
+    {
+        public string Name = "OpenRA Game";
+        public int ListenPort = 1234;
+        public int ExternalPort = 1234;
+        public bool AdvertiseOnline = true;
+        public string MasterServer = "http://master.open-ra.org/";
+        public bool AllowUPnP = false;
+        public bool AllowCheats = false;
+        public string Map = null;
+        public string[] Ban = null;
+        public int TimeOut = 0;
+        public bool Dedicated = false;
+        public bool DedicatedLoop = true;
+        public bool LockBots = false;
+        public bool AllowVersionMismatch = false;
 
-		public ServerSettings() { }
+        public ServerSettings() { }
 
-		public ServerSettings(ServerSettings other)
-		{
-			Name = other.Name;
-			ListenPort = other.ListenPort;
-			ExternalPort = other.ExternalPort;
-			AdvertiseOnline = other.AdvertiseOnline;
-			MasterServer = other.MasterServer;
-			AllowUPnP = other.AllowUPnP;
-			AllowCheats = other.AllowCheats;
-			Map = other.Map;
-			Ban = other.Ban;
-			TimeOut = other.TimeOut;
-			Dedicated = other.Dedicated;
-			DedicatedLoop = other.DedicatedLoop;
-			LockBots = other.LockBots;
-			AllowVersionMismatch = other.AllowVersionMismatch;
-		}
-	}
+        public ServerSettings(ServerSettings other)
+        {
+            Name = other.Name;
+            ListenPort = other.ListenPort;
+            ExternalPort = other.ExternalPort;
+            AdvertiseOnline = other.AdvertiseOnline;
+            MasterServer = other.MasterServer;
+            AllowUPnP = other.AllowUPnP;
+            AllowCheats = other.AllowCheats;
+            Map = other.Map;
+            Ban = other.Ban;
+            TimeOut = other.TimeOut;
+            Dedicated = other.Dedicated;
+            DedicatedLoop = other.DedicatedLoop;
+            LockBots = other.LockBots;
+            AllowVersionMismatch = other.AllowVersionMismatch;
+        }
+    }
 
-	public class DebugSettings
-	{
-		public bool BotDebug = false;
-		public bool PerfText = false;
-		public bool PerfGraph = false;
-		public float LongTickThreshold = 0.001f;
-		public bool SanityCheckUnsyncedCode = false;
-		public int Samples = 25;
-		public bool IgnoreVersionMismatch = false;
-	}
+    public class DebugSettings
+    {
+        public bool BotDebug = false;
+        public bool PerfText = false;
+        public bool PerfGraph = false;
+        public float LongTickThreshold = 0.001f;
+        public bool SanityCheckUnsyncedCode = false;
+        public int Samples = 25;
+        public bool IgnoreVersionMismatch = false;
+    }
 
-	public class GraphicSettings
-	{
-		public string Renderer = "Gl";
-		public WindowMode Mode = WindowMode.PseudoFullscreen;
-		public int2 FullscreenSize = new int2(0,0);
-		public int2 WindowedSize = new int2(1024, 768);
-		public bool PixelDouble = false;
-		public bool CapFramerate = false;
-		public int MaxFramerate = 60;
+    public class GraphicSettings
+    {
+        public string Renderer = "Gl";
+        public WindowMode Mode = WindowMode.PseudoFullscreen;
+        public int2 FullscreenSize = new int2(0, 0);
+        public int2 WindowedSize = new int2(1024, 768);
+        public bool PixelDouble = false;
+        public bool CapFramerate = false;
+        public int MaxFramerate = 60;
 
-		public int BatchSize = 8192;
-		public int NumTempBuffers = 8;
-		public int SheetSize = 2048;
-	}
+        public int BatchSize = 8192;
+        public int NumTempBuffers = 8;
+        public int SheetSize = 2048;
+    }
 
-	public class SoundSettings
-	{
-		public float SoundVolume = 0.5f;
-		public float MusicVolume = 0.5f;
-		public float VideoVolume = 0.5f;
-		public bool Shuffle = false;
-		public bool Repeat = false;
-		public bool MapMusic = true;
-		public string Engine = "AL";
-		
-		public SoundCashTicks SoundCashTickType = SoundCashTicks.Extreme;
-	}
+    public class SoundSettings
+    {
+        public float SoundVolume = 0.5f;
+        public float MusicVolume = 0.5f;
+        public float VideoVolume = 0.5f;
+        public bool Shuffle = false;
+        public bool Repeat = false;
+        public bool MapMusic = true;
+        public string Engine = "AL";
 
-	public class PlayerSettings
-	{
-		public string Name = "Newbie";
-		public ColorRamp ColorRamp = new ColorRamp(75, 255, 180, 25);
-		public string LastServer = "localhost:1234";
-	}
+        public SoundCashTicks SoundCashTickType = SoundCashTicks.Extreme;
+    }
 
-	public class GameSettings
-	{
-		public string[] Mods = { "ra" };
+    public class PlayerSettings
+    {
+        public string Name = "Newbie";
+        public ColorRamp ColorRamp = new ColorRamp(75, 255, 180, 25);
+        public string LastServer = "localhost:1234";
+    }
 
-		public bool TeamChatToggle = false;
-		public bool ShowShellmap = true;
+    public class GameSettings
+    {
+        public string[] Mods = { "ra" };
 
-		public bool ViewportEdgeScroll = true;
-		public MouseScrollType MouseScroll = MouseScrollType.Standard;
-		public float ViewportEdgeScrollStep = 10f;
+        public bool TeamChatToggle = false;
+        public bool ShowShellmap = true;
 
-		public bool UseClassicMouseStyle = false;
+        public bool ViewportEdgeScroll = true;
+        public MouseScrollType MouseScroll = MouseScrollType.Standard;
+        public float ViewportEdgeScrollStep = 10f;
 
-		// Internal game settings
-		public int Timestep = 40;
+        public bool UseClassicMouseStyle = false;
 
-		public string ConnectTo = "";
-		public bool AllowDownloading = true;
-		public string MapRepository = "http://content.open-ra.org/map/";
-	}
+        // Internal game settings
+        public int Timestep = 40;
 
-	public class KeySettings
-	{
-		public string PauseKey = "f3";
+        public string ConnectTo = "";
+        public bool AllowDownloading = true;
+        public string MapRepository = "http://content.open-ra.org/map/";
+    }
 
-		public string CycleBaseKey = "backspace";
-		public string ToLastEventKey = "space";
-		public string ToSelectionKey = "home";
-		public string SellKey = "v";
-		public string PowerDownKey = "b";
-		public string RepairKey = "n";
+    public class KeySettings
+    {
+        public string PauseKey = "f3";
 
-		public string AttackMoveKey = "a";
-		public string StopKey = "s";
-		public string ScatterKey = "x";
-		public string StanceCycleKey = "z";
-		public string DeployKey = "f";
+        public string CycleBaseKey = "backspace";
+        public string ToLastEventKey = "space";
+        public string ToSelectionKey = "home";
+        public string SellKey = "v";
+        public string PowerDownKey = "b";
+        public string RepairKey = "n";
 
-		public string CycleTabsKey = "tab";
-	}
+        public string AttackMoveKey = "a";
+        public string StopKey = "s";
+        public string ScatterKey = "x";
+        public string StanceCycleKey = "z";
+        public string DeployKey = "f";
+
+        public string CycleTabsKey = "tab";
+    }
+
+    public class CampaignSettings
+    {
+        /*
+             * Allies 01: bf46386b1c8e1618088d3c495d5beb93cac461f6
+             * Allies 02: e0624a4ba15d728c02f62566523c0279cc938fe2
+             */
+        public string Name = "Allies";
+        public int NumberOfCompletedMissions = 0;
+        public string NextMission = "bf46386b1c8e1618088d3c495d5beb93cac461f6";
+    }
 
 
-	public class Settings
-	{
-		string SettingsFile;
+    public class Settings
+    {
+        string SettingsFile;
 
-		public PlayerSettings Player = new PlayerSettings();
-		public GameSettings Game = new GameSettings();
-		public SoundSettings Sound = new SoundSettings();
-		public GraphicSettings Graphics = new GraphicSettings();
-		public ServerSettings Server = new ServerSettings();
-		public DebugSettings Debug = new DebugSettings();
-		public KeySettings Keys = new KeySettings();
+        public PlayerSettings Player = new PlayerSettings();
+        public GameSettings Game = new GameSettings();
+        public SoundSettings Sound = new SoundSettings();
+        public GraphicSettings Graphics = new GraphicSettings();
+        public ServerSettings Server = new ServerSettings();
+        public DebugSettings Debug = new DebugSettings();
+        public KeySettings Keys = new KeySettings();
+        public CampaignSettings Campaign = new CampaignSettings(); // Added by Gamma Crux
 
-		public Dictionary<string, object> Sections;
+        public Dictionary<string, object> Sections;
 
-		public Settings(string file, Arguments args)
-		{
-			SettingsFile = file;
-			Sections = new Dictionary<string, object>()
+        public Settings(string file, Arguments args)
+        {
+            SettingsFile = file;
+            Sections = new Dictionary<string, object>()
 			{
 				{"Player", Player},
 				{"Game", Game},
@@ -174,56 +186,57 @@ namespace OpenRA.GameRules
 				{"Server", Server},
 				{"Debug", Debug},
 				{"Keys", Keys},
+                {"Campaign", Campaign}, // Added by Gamma Crux
 			};
 
-			// Override fieldloader to ignore invalid entries
-			var err1 = FieldLoader.UnknownFieldAction;
-			var err2 = FieldLoader.InvalidValueAction;
+            // Override fieldloader to ignore invalid entries
+            var err1 = FieldLoader.UnknownFieldAction;
+            var err2 = FieldLoader.InvalidValueAction;
 
-			FieldLoader.UnknownFieldAction = (s,f) =>
-			{
-				Console.WriteLine( "Ignoring unknown field `{0}` on `{1}`".F( s, f.Name ) );
-			};
+            FieldLoader.UnknownFieldAction = (s, f) =>
+            {
+                Console.WriteLine("Ignoring unknown field `{0}` on `{1}`".F(s, f.Name));
+            };
 
-			if (File.Exists(SettingsFile))
-			{
-				var yaml = MiniYaml.DictFromFile(SettingsFile);
+            if (File.Exists(SettingsFile))
+            {
+                var yaml = MiniYaml.DictFromFile(SettingsFile);
 
-				foreach (var kv in Sections)
-					if (yaml.ContainsKey(kv.Key))
-						LoadSectionYaml(yaml[kv.Key], kv.Value);
-			}
+                foreach (var kv in Sections)
+                    if (yaml.ContainsKey(kv.Key))
+                        LoadSectionYaml(yaml[kv.Key], kv.Value);
+            }
 
-			// Override with commandline args
-			foreach (var kv in Sections)
-				foreach (var f in kv.Value.GetType().GetFields())
-					if (args.Contains(kv.Key+"."+f.Name))
-						FieldLoader.LoadField( kv.Value, f.Name, args.GetValue(kv.Key+"."+f.Name, "") );
+            // Override with commandline args
+            foreach (var kv in Sections)
+                foreach (var f in kv.Value.GetType().GetFields())
+                    if (args.Contains(kv.Key + "." + f.Name))
+                        FieldLoader.LoadField(kv.Value, f.Name, args.GetValue(kv.Key + "." + f.Name, ""));
 
-			FieldLoader.UnknownFieldAction = err1;
-			FieldLoader.InvalidValueAction = err2;
-		}
+            FieldLoader.UnknownFieldAction = err1;
+            FieldLoader.InvalidValueAction = err2;
+        }
 
-		public void Save()
-		{
-			var root = new List<MiniYamlNode>();
-			foreach( var kv in Sections )
-				root.Add( new MiniYamlNode( kv.Key, FieldSaver.SaveDifferences(kv.Value, Activator.CreateInstance(kv.Value.GetType())) ) );
+        public void Save()
+        {
+            var root = new List<MiniYamlNode>();
+            foreach (var kv in Sections)
+                root.Add(new MiniYamlNode(kv.Key, FieldSaver.SaveDifferences(kv.Value, Activator.CreateInstance(kv.Value.GetType()))));
 
-			root.WriteToFile(SettingsFile);
-		}
+            root.WriteToFile(SettingsFile);
+        }
 
-		void LoadSectionYaml(MiniYaml yaml, object section)
-		{
-			var defaults = Activator.CreateInstance(section.GetType());
-			FieldLoader.InvalidValueAction = (s,t,f) =>
-			{
-				var ret = defaults.GetType().GetField(f).GetValue(defaults);
-				Console.WriteLine("FieldLoader: Cannot parse `{0}` into `{2}:{1}`; substituting default `{3}`".F(s,t.Name,f,ret) );
-				return ret;
-			};
+        void LoadSectionYaml(MiniYaml yaml, object section)
+        {
+            var defaults = Activator.CreateInstance(section.GetType());
+            FieldLoader.InvalidValueAction = (s, t, f) =>
+            {
+                var ret = defaults.GetType().GetField(f).GetValue(defaults);
+                Console.WriteLine("FieldLoader: Cannot parse `{0}` into `{2}:{1}`; substituting default `{3}`".F(s, t.Name, f, ret));
+                return ret;
+            };
 
-			FieldLoader.Load(section, yaml);
-		}
-	}
+            FieldLoader.Load(section, yaml);
+        }
+    }
 }

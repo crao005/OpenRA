@@ -85,6 +85,10 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             Game.Settings.Server.AdvertiseOnline = false;
             Game.Settings.Server.AllowUPnP = false;
 
+            Game.Settings.Campaign.Name = "Allies";
+            Game.Settings.Campaign.NumberOfCompletedMissions = 0;
+            Game.Settings.Campaign.NextMission = "bf46386b1c8e1618088d3c495d5beb93cac461f6";
+
             Game.Settings.Save();
 
             // Take a copy so that subsequent changes don't affect the server
