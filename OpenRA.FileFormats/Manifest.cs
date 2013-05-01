@@ -20,18 +20,18 @@ namespace OpenRA.FileFormats
 		public readonly string[]
 			Mods, Folders, Packages, Rules, ServerTraits,
 			Sequences, Cursors, Chrome, Assemblies, ChromeLayout,
-			Weapons, Voices, Notifications, Music, Movies, TileSets, ChromeMetrics;
+            Weapons, Voices, Notifications, Music, Movies, TileSets, ChromeMetrics, Allies;
 		public readonly MiniYaml LoadScreen;
 		public readonly Dictionary<string, Pair<string,int>> Fonts;
 		public readonly int TileSize = 24;
 
 		public Manifest(string[] mods)
-		{
+		{           
 			Mods = mods;
 			var yaml = new MiniYaml(null, mods
 				.Select(m => MiniYaml.FromFile("mods/" + m + "/mod.yaml"))
 				.Aggregate(MiniYaml.MergeLiberal)).NodesDict;
-
+ 
 			// TODO: Use fieldloader
 			Folders = YamlList(yaml, "Folders");
 			Packages = YamlList(yaml, "Packages");
@@ -49,6 +49,7 @@ namespace OpenRA.FileFormats
 			Movies = YamlList(yaml, "Movies");
 			TileSets = YamlList(yaml, "TileSets");
 			ChromeMetrics = YamlList(yaml, "ChromeMetrics");
+            Allies = YamlList(yaml, "Allies");
 
 			LoadScreen = yaml["LoadScreen"];
 			Fonts = yaml["Fonts"].NodesDict.ToDictionary(x => x.Key,
