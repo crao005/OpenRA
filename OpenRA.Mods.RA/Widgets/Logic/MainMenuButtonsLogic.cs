@@ -27,8 +27,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             Game.Settings.Save();
             
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(1));
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(Game.Settings.Campaign.NumberOfCompletedMissions+1));
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => NewCampaign();
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(Game.Settings.Campaign.NextMission));
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");
@@ -75,6 +75,17 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			});
 		}
 
+
+        void NewCampaign()
+        {
+            Game.Settings.Campaign.Name = "Allies";
+            Game.Settings.Campaign.NextMission = 1;
+
+            Game.Settings.Save();
+
+            OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(1));
+        }
+
         void OpenSinglePlayerPanel(string mapId)
         {
             // Save new settings
@@ -90,9 +101,6 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             Game.Settings.Server.AllowUPnP = false;
 
             Game.Settings.Campaign.SinglePlayer = true;
-            Game.Settings.Campaign.Name = "Allies";
-            Game.Settings.Campaign.NumberOfCompletedMissions = 0;
-            Game.Settings.Campaign.NextMission = mapId;
 
             Game.Settings.Save();
 

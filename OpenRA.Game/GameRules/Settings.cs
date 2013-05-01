@@ -155,8 +155,7 @@ namespace OpenRA.GameRules
              */
         public bool SinglePlayer = false;
         public string Name = "Allies";
-        public int NumberOfCompletedMissions = 0;
-        public string NextMission = "bf46386b1c8e1618088d3c495d5beb93cac461f6";
+        public int NextMission = 1;
     }
 
 
