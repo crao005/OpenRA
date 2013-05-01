@@ -21,18 +21,44 @@ namespace OpenRA.FileFormats.Thirdparty
         public static String getMap(int num)
         {
             String[] campaign;
-            string[] mods = new string[] {"ra"};
+           
             //There should be a  yaml file named campaign.yamal stored in \mods\ra\gammacrux\
+            //var yaml = new MiniYaml(null, mods
+            //    .Select(m => MiniYaml.FromFile("mods/" + m + "/campaigns/Allies.yaml"))
+            //    .Aggregate(MiniYaml.MergeLiberal)).NodesDict;
 
-            var yaml = new MiniYaml(null, mods
-                .Select(m => MiniYaml.FromFile("mods/" + m + "/campaigns/Allies.yaml"))
-                .Aggregate(MiniYaml.MergeLiberal)).NodesDict;
-
-            // TODO: Use fieldloader
-
+            var yaml = MiniYaml.DictFromFile("mods/ra/campaigns/Allies.yaml");
+          
             campaign = YamlList(yaml, "Campaign");
             if (num > campaign.Length) return "No Map Found";
             return campaign[num-1];
+        }
+
+        /// <summary>
+        /// string aa =  Thirdparty.GammaCruxYamlHelper.getNextMaps();
+        /// </summary>
+        /// <returns></returns>
+        public static String getNextMaps()
+        {
+            String[] campaign;
+            int num = -1;
+
+            var yaml = MiniYaml.DictFromFile("mods/ra/campaigns/Allies.yaml");
+            campaign = YamlList(yaml, "Campaign");
+
+            var setting = MiniYaml.DictFromFile(Platform.SupportDir + "settings.yaml");
+
+            if (setting.ContainsKey("Campaign"))
+            {
+                var settingCampaign = setting["Campaign"].NodesDict;
+                if (settingCampaign.ContainsKey("NextMission"))
+                {
+                    num = Convert.ToInt32(settingCampaign["NextMission"].Value);
+                }
+            }
+            
+            if (num > campaign.Length) return "No Map Found";
+            return campaign[num - 1];
         }
 
         static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
@@ -42,5 +68,6 @@ namespace OpenRA.FileFormats.Thirdparty
 
             return yaml[key].NodesDict.Keys.ToArray();
         }
+
     }
 }
