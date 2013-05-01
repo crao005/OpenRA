@@ -25,10 +25,10 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
             Game.Settings.Campaign.SinglePlayer = false;
             Game.Settings.Save();
-
+            
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => OpenSinglePlayerPanel("bf46386b1c8e1618088d3c495d5beb93cac461f6");
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(Game.Settings.Campaign.NextMission);
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(2));
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");

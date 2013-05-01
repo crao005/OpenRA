@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OpenRA.FileFormats.Thirdparty
 {
-    class GammaCruxYamlHelper
+    public class GammaCruxYamlHelper
     {
         public String[] campaign;
         public GammaCruxYamlHelper()
@@ -14,11 +14,11 @@ namespace OpenRA.FileFormats.Thirdparty
 
         /// <summary>
         /// example:
-        /// string aa = Thirdparty.GammaCruxYamlHelper.getNextMaps(1);       
+        /// string aa = Thirdparty.GammaCruxYamlHelper.getMap(1);       
         /// </summary>
         /// <param name="num"></param>
         /// <returns>Map Hash Code </returns>
-        public static String getNextMaps(int num)
+        public static String getMap(int num)
         {
             String[] campaign;
             string[] mods = new string[] {"ra"};
