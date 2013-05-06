@@ -47,10 +47,10 @@ Players:
 		Enemies: Allies,Creeps
 
 Actors:
-	Jeep: jeep
+	AlliesJeep: jeep
 		Location: 19,23
 		Owner: Allies
-	Actor1: jeep
+	SovietsJeep: jeep
 		Location: 27,23
 		Owner: Soviets
 

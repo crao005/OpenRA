@@ -40,7 +40,8 @@ namespace OpenRA.Mods.RA.Missions
 		Player allies;
 		Player soviets;
 
-		Actor jeep;
+        Actor alliesjeep;
+        Actor sovietsjeep;
 		
 		World world;
 
@@ -60,7 +61,7 @@ namespace OpenRA.Mods.RA.Missions
 
 			if (objectives[KillJeepID].Status == ObjectiveStatus.InProgress)
 			{
-                if (AlliesKilledJeep())
+                if (sovietsjeep != null && sovietsjeep.Destroyed)
                 {
                     objectives[KillJeepID].Status = ObjectiveStatus.Completed;
                     OnObjectivesUpdated(true);
@@ -68,18 +69,10 @@ namespace OpenRA.Mods.RA.Missions
                 }
 			}
 
-			if (jeep != null && jeep.Destroyed)
+			if (alliesjeep != null && alliesjeep.Destroyed)
 				MissionFailed("Your jeep was destroyed.");
 		}
 
-
-        bool AlliesKilledJeep()
-		{
-			// Return true if the Soviet Jeep is dead.
-
-            return false;// MissionUtils.AreaSecuredWithUnits(world, allies, lab.CenterLocation, LabClearRange);
-		}
-		
 		public void WorldLoaded(World w)
 		{
 			world = w;
@@ -90,7 +83,8 @@ namespace OpenRA.Mods.RA.Missions
 			allies.PlayerActor.Trait<PlayerResources>().Cash = 0;
 
 			var actors = w.WorldActor.Trait<SpawnMapActors>().Actors;
-			jeep = actors["Jeep"];
+			alliesjeep = actors["AlliesJeep"];
+            sovietsjeep = actors["SovietsJeep"];
 			
 			MissionUtils.PlayMissionMusic();
 		}
