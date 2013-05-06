@@ -1,0 +1,66 @@
+Selectable: True
+
+MapFormat: 5
+
+Title: Gamma Crux Deathmatch
+
+Description: One against one
+
+Author: Gamma Crux
+
+Tileset: TEMPERAT
+
+MapSize: 48,48
+
+Bounds: 16,16,16,16
+
+UseAsShellmap: False
+
+Type: Campaign
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Race: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Race: allies
+		Enemies: Multi0,Multi1
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		DefaultStartingUnits: True
+		Race: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		DefaultStartingUnits: True
+		Race: Random
+		Enemies: Creeps
+
+Actors:
+	Actor0: mpspawn
+		Location: 19,23
+		Owner: Neutral
+	Actor1: mpspawn
+		Location: 27,23
+		Owner: Neutral
+
+Smudges:
+
+Rules:
+	Player:
+		PlayerResources:
+			InitialCash: 4000
+
+Sequences:
+
+Weapons:
+
+Voices:
+
+Notifications:
