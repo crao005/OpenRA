@@ -28,7 +28,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => NewCampaign();
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(Game.Settings.Campaign.NextMission));
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMaps());
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");
@@ -79,7 +79,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
         void NewCampaign()
         {
             Game.Settings.Campaign.Name = "Allies";
-            Game.Settings.Campaign.NextMission = 1;
+            Game.Settings.Campaign.SinglePlayer = true;
+            Game.Settings.Campaign.NextMission = 2;
 
             Game.Settings.Save();
 
@@ -100,7 +101,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             Game.Settings.Server.AdvertiseOnline = false;
             Game.Settings.Server.AllowUPnP = false;
 
-            Game.Settings.Campaign.SinglePlayer = true;
+            
 
             Game.Settings.Save();
 
