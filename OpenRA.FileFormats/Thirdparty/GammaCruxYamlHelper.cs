@@ -22,7 +22,7 @@ namespace OpenRA.FileFormats.Thirdparty
         {
             String[] campaign;
            
-            //There should be a  yaml file named campaign.yamal stored in \mods\ra\gammacrux\
+            //There should be a  yaml file named campaign.yaml stored in \mods\ra\gammacrux\
             //var yaml = new MiniYaml(null, mods
             //    .Select(m => MiniYaml.FromFile("mods/" + m + "/campaigns/Allies.yaml"))
             //    .Aggregate(MiniYaml.MergeLiberal)).NodesDict;

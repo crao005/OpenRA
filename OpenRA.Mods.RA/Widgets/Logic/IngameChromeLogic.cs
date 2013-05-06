@@ -8,6 +8,8 @@
  */
 #endregion
 
+using System.Net;
+using OpenRA.GameRules;
 using OpenRA.Traits;
 using System.Linq;
 using OpenRA.Widgets;
@@ -81,7 +83,10 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			var postGameObserve = postgameBG.Get<ButtonWidget>("POSTGAME_OBSERVE");
 
 			var postgameQuit = postgameBG.Get<ButtonWidget>("POSTGAME_QUIT");
-			postgameQuit.OnClick = () => LeaveGame(postgameQuit, world);
+            postgameQuit.OnClick = () => LeaveGame(postgameQuit, world);
+
+            var postgameContinue = postgameBG.Get<ButtonWidget>("POSTGAME_CONTINUE"); //BROKEN
+            postgameContinue.OnClick = () => LoadNextLevel(postgameContinue, world);
 
 			postGameObserve.OnClick = () => postgameQuit.Visible = false;
 			postGameObserve.IsVisible = () => world.LocalPlayer.WinState != WinState.Won;
@@ -109,5 +114,46 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			Ui.CloseWindow();
 			Ui.OpenWindow("MAINMENU_BG");
 		}
+
+        void LoadNextLevel(Widget pane, World world)
+        {
+            pane.Visible = false;
+			Game.Disconnect();
+            Ui.CloseWindow();
+
+
+//            OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(Game.Settings.Campaign.NextMission));
+//            // Save new settings
+//            Game.Settings.Server.Name = "Single Player";
+//
+//            // Begin with Allies 01
+//            Game.Settings.Server.Map = "e0624a4ba15d728c02f62566523c0279cc938fe2";
+//
+//            //Auto-set settings
+//            Game.Settings.Server.ListenPort = 1234;
+//            Game.Settings.Server.ExternalPort = 1234;
+//            Game.Settings.Server.AdvertiseOnline = false;
+//            Game.Settings.Server.AllowUPnP = false;
+//
+//            Game.Settings.Save();
+//
+//            // Take a copy so that subsequent changes don't affect the server
+//            var settings = new ServerSettings(Game.Settings.Server);
+//
+//            // Create the server
+//            Game.CreateServer(settings);
+//
+//            ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort,
+//                () => Game.OpenWindow("SINGLEPLAYER_BG", new WidgetArgs()
+//                {
+//                    // NOTE: These aren't used because single player logic no longer requires them.
+////                    { "onExit", () => { Game.Disconnect(); } },
+////                    { "onStart", RemoveShellmapUI }
+//                  
+//                }),
+//                () => { });
+//
+        }
+        
 	}
 }

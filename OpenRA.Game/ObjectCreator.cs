@@ -72,7 +72,7 @@ namespace OpenRA
 			return type.GetConstructor( new Type[ 0 ] ).Invoke( new object[ 0 ] );
 		}
 
-		public object CreateUsingArgs( ConstructorInfo ctor, Dictionary<string, object> args )
+		public object CreateUsingArgs( ConstructorInfo ctor, Dictionary<string, object> args ) 
 		{
 			var p = ctor.GetParameters();
 			var a = new object[ p.Length ];
