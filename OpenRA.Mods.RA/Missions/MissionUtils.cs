@@ -152,11 +152,11 @@ namespace OpenRA.Mods.RA.Missions
 			foreach (var player in players)
 				player.WinState = WinState.Won;
 
-
+            if(Game.Settings.Campaign.SinglePlayer){
             // Added by Gamma Crux
             Game.Settings.Campaign.NextMission++;
             Game.Settings.Save();
-
+            }
 
 			if (text != null)
 				Game.AddChatLine(Color.Blue, "Mission accomplished", text);
