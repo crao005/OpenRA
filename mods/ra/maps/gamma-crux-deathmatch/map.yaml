@@ -28,34 +28,44 @@ Players:
 		Name: Creeps
 		NonCombatant: True
 		Race: allies
-		Enemies: Multi0,Multi1
-	PlayerReference@Multi0:
-		Name: Multi0
+	PlayerReference@Allies:
+		Name: Allies
 		Playable: True
-		DefaultStartingUnits: True
-		Race: Random
-		Enemies: Creeps
-	PlayerReference@Multi1:
-		Name: Multi1
-		Playable: True
-		DefaultStartingUnits: True
-		Race: Random
-		Enemies: Creeps
+		AllowBots: False
+		LockRace: True
+		Race: allies
+		LockColour: True
+		ColorRamp: 161,134,200,30
+		LockSpawn: True
+		LockTeam: True
+		Allies: Creeps
+		Enemies: Soviets
+	PlayerReference@Soviets:
+		Name: Soviets
+		Race: soviet
+		ColorRamp: 3,255,127,28
+		Enemies: Allies,Creeps
 
 Actors:
-	Actor0: mpspawn
+	Jeep: jeep
 		Location: 19,23
-		Owner: Neutral
-	Actor1: mpspawn
+		Owner: Allies
+	Actor1: jeep
 		Location: 27,23
-		Owner: Neutral
+		Owner: Soviets
 
 Smudges:
 
 Rules:
 	Player:
-		PlayerResources:
-			InitialCash: 4000
+		-ConquestVictoryConditions:
+	World:
+		-CrateDrop:
+		-SpawnMPUnits:
+		-MPStartLocations:
+		GammaCruxDeathmatchScript:
+		MissionObjectivesPanel:
+			ObjectivesPanel: MISSION_OBJECTIVES
 
 Sequences:
 
