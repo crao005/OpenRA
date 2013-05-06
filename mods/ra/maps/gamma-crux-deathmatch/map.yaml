@@ -57,6 +57,9 @@ Actors:
 Smudges:
 
 Rules:
+	JEEP:
+		Health:
+			HP: 10
 	Player:
 		-ConquestVictoryConditions:
 	World:
