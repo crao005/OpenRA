@@ -41,7 +41,7 @@ namespace OpenRA.FileFormats.Thirdparty
         public static String getNextMaps()
         {
             String[] campaign;
-            int num = -1;
+            int num = 1;
 
             var yaml = MiniYaml.DictFromFile("mods/ra/campaigns/Allies.yaml");
             campaign = YamlList(yaml, "Campaign");

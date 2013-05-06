@@ -78,9 +78,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
         void NewCampaign()
         {
-            Game.Settings.Campaign.Name = "Allies";
-            Game.Settings.Campaign.SinglePlayer = true;
-            Game.Settings.Campaign.NextMission = 2;
+            Game.Settings.Campaign.Name = "Allies";         
+            Game.Settings.Campaign.NextMission = 1;
 
             Game.Settings.Save();
 
@@ -101,7 +100,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             Game.Settings.Server.AdvertiseOnline = false;
             Game.Settings.Server.AllowUPnP = false;
 
-            
+            Game.Settings.Campaign.SinglePlayer = true;
 
             Game.Settings.Save();
 
