@@ -86,6 +86,12 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             postgameQuit.OnClick = () => LeaveGame(postgameQuit, world);
 
             var postgameContinue = postgameBG.Get<ButtonWidget>("POSTGAME_CONTINUE");
+            postgameContinue.GetText = () =>
+            {
+                var state = world.LocalPlayer.WinState;
+                return state == WinState.Undefined ? "" :
+                                (state == WinState.Lost ? "Retry" : "Continue");
+            };
             postgameContinue.OnClick = () => LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMaps());
 
 			postGameObserve.OnClick = () => postgameQuit.Visible = false;
