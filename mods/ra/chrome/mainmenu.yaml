@@ -14,7 +14,7 @@ Background@MAINMENU_BG:
 			Text:OpenRA Main Menu
 			Align:Center
 			Font:Bold
-		Button@MAINMENU_BUTTON_SINGLEPLAYER
+		Button@MAINMENU_BUTTON_SINGLEPLAYER:
 			X:45
 			Y:60
 			Width:160
