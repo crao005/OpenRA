@@ -23,18 +23,19 @@ namespace OpenRA.FileFormats.Thirdparty
         {
             String[] campaign;
            
-            //There should be a  yaml file named campaign.yaml stored in \mods\ra\gammacrux\
+            // There should be a  yaml file named Allies.yaml stored in \mods\ra\campaigns
+            // that accesses the different map ids to run in single player mode
             //var yaml = new MiniYaml(null, mods
             //    .Select(m => MiniYaml.FromFile("mods/" + m + "/campaigns/Allies.yaml"))
             //    .Aggregate(MiniYaml.MergeLiberal)).NodesDict;
 
             var yaml = MiniYaml.DictFromFile("mods/ra/campaigns/Allies.yaml");
-          
-            //string pathstart = "mods\ra\maps";
 
             campaign = YamlList(yaml, "Campaign");
+
+            // Check statement to cleanly end with message if no map is found
             if (num > campaign.Length) return "No Map Found";
-            //return campaign[num-1];
+
             return GetHash(@"mods\ra\maps\"+campaign[num-1]);
         }
 
@@ -42,7 +43,8 @@ namespace OpenRA.FileFormats.Thirdparty
         /// string aa =  Thirdparty.GammaCruxYamlHelper.getNextMaps();
         /// </summary>
         /// <returns></returns>
-        public static String getNextMaps()
+        // Method accesses the next map once the current map level is finished  
+        public static String getNextMap()
         {
             String[] campaign;
             int num = 1;
@@ -62,7 +64,8 @@ namespace OpenRA.FileFormats.Thirdparty
             }
             
             if (num > campaign.Length) return "No Map Found";
-            return campaign[num - 1];
+
+            return GetHash(@"mods\ra\maps\" + campaign[num - 1]);
         }
 
         static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)

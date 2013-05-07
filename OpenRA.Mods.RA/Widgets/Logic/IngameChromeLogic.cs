@@ -85,14 +85,19 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			var postgameQuit = postgameBG.Get<ButtonWidget>("POSTGAME_QUIT");
             postgameQuit.OnClick = () => LeaveGame(postgameQuit, world);
 
+            
             var postgameContinue = postgameBG.Get<ButtonWidget>("POSTGAME_CONTINUE");
+            if(!Game.Settings.Campaign.SinglePlayer) postgameContinue.Visible = false;
             postgameContinue.GetText = () =>
             {
                 var state = world.LocalPlayer.WinState;
                 return state == WinState.Undefined ? "" :
                                 (state == WinState.Lost ? "Retry" : "Continue");
             };
-            postgameContinue.OnClick = () => LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMaps());
+            postgameContinue.OnClick = () =>
+                {
+                    LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());
+                };
 
 			postGameObserve.OnClick = () => postgameQuit.Visible = false;
 			postGameObserve.IsVisible = () => world.LocalPlayer.WinState != WinState.Won;
@@ -107,7 +112,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			{
 				var state = world.LocalPlayer.WinState;
 				return state == WinState.Undefined ? "" :
-								(state == WinState.Lost ? "YOU ARE DEFEATED" : "YOU ARE VICTORIOUS");
+								(state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS!! \nYOU ARE VICTORIOUS!");
 			};
 		}
 
