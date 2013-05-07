@@ -92,7 +92,13 @@ namespace OpenRA.Mods.RA.Widgets.Logic
                 return state == WinState.Undefined ? "" :
                                 (state == WinState.Lost ? "Retry" : "Continue");
             };
-            postgameContinue.OnClick = () => LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMaps());
+            postgameContinue.OnClick = () =>
+                {
+                    if (Game.Settings.Campaign.SinglePlayer)
+                    LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMaps());
+                    else
+                    LoadNextLevel(postgameContinue, world, Game.Settings.Server.Map);
+                };
 
 			postGameObserve.OnClick = () => postgameQuit.Visible = false;
 			postGameObserve.IsVisible = () => world.LocalPlayer.WinState != WinState.Won;
