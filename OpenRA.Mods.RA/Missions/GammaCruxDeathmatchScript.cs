@@ -17,6 +17,7 @@ using OpenRA.Mods.RA.Air;
 using OpenRA.Mods.RA.Move;
 using OpenRA.Scripting;
 using OpenRA.Traits;
+using System.Drawing;
 
 namespace OpenRA.Mods.RA.Missions
 {
@@ -87,6 +88,7 @@ namespace OpenRA.Mods.RA.Missions
             sovietsjeep = actors["SovietsJeep"];
 			
 			MissionUtils.PlayMissionMusic();
+            Game.AddChatLine(Color.Red, "Mission started", "Kill the enemy jeep!");
 		}
 	}
 }

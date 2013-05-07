@@ -19,14 +19,14 @@ Background@MAINMENU_BG:
 			Y:60
 			Width:160
 			Height:25
-			Text:Single Player
+			Text:Start New Campaign
 			Font:Bold
 		Button@MAINMENU_BUTTON_CONTINUE
 			X:45
 			Y:100
 			Width:160
 			Height:25
-			Text:Continue
+			Text:Continue Campaign
 			Font:Bold
 		Button@MAINMENU_BUTTON_JOIN:
 			X:45

@@ -6,8 +6,8 @@ Background@SINGLEPLAYER_BG:
 	Height:60
 	Children:
 		Label@INITIALIZING_TEXT
-			X:50
-			Y:10
+			X:80
+			Y:20
 			Width:50
 			Height:25
 			Text:Initializing...
