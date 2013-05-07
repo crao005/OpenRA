@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace OpenRA.FileFormats.Thirdparty
 {
@@ -29,11 +30,13 @@ namespace OpenRA.FileFormats.Thirdparty
             //    .Aggregate(MiniYaml.MergeLiberal)).NodesDict;
 
             var yaml = MiniYaml.DictFromFile("mods/ra/campaigns/Allies.yaml");
+
             campaign = YamlList(yaml, "Campaign");
 
             // Check statement to cleanly end with message if no map is found
             if (num > campaign.Length) return "No Map Found";
-            return campaign[num-1];
+
+            return GetHash(@"mods\ra\maps\"+campaign[num-1]);
         }
 
         /// <summary>
@@ -41,7 +44,7 @@ namespace OpenRA.FileFormats.Thirdparty
         /// </summary>
         /// <returns></returns>
         // Method accesses the next map once the current map level is finished  
-        public static String getNextMaps()
+        public static String getNextMap()
         {
             String[] campaign;
             int num = 1;
@@ -61,7 +64,8 @@ namespace OpenRA.FileFormats.Thirdparty
             }
             
             if (num > campaign.Length) return "No Map Found";
-            return campaign[num - 1];
+
+            return GetHash(@"mods\ra\maps\" + campaign[num - 1]);
         }
 
         static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
@@ -72,5 +76,19 @@ namespace OpenRA.FileFormats.Thirdparty
             return yaml[key].NodesDict.Keys.ToArray();
         }
 
+
+        static string GetHash(string path)
+        {
+            IFolder Container = FileSystem.OpenPackage(path, int.MaxValue);
+
+            // UID is calculated by taking an SHA1 of the yaml and binary data
+            // Read the relevant data into a buffer
+            var data = Container.GetContent("map.yaml").ReadAllBytes()
+                .Concat(Container.GetContent("map.bin").ReadAllBytes()).ToArray();
+
+            // Take the SHA1
+            using (var csp = SHA1.Create())
+                return new string(csp.ComputeHash(data).SelectMany(a => a.ToString("x2")).ToArray());
+        }
     }
 }

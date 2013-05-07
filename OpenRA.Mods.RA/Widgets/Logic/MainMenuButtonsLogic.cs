@@ -28,7 +28,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => NewCampaign();
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMaps());
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");

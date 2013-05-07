@@ -96,7 +96,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             };
             postgameContinue.OnClick = () =>
                 {
-                    LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMaps());
+                    LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());
                 };
 
 			postGameObserve.OnClick = () => postgameQuit.Visible = false;
