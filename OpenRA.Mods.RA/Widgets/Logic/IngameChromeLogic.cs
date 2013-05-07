@@ -85,7 +85,9 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			var postgameQuit = postgameBG.Get<ButtonWidget>("POSTGAME_QUIT");
             postgameQuit.OnClick = () => LeaveGame(postgameQuit, world);
 
+            
             var postgameContinue = postgameBG.Get<ButtonWidget>("POSTGAME_CONTINUE");
+            if(!Game.Settings.Campaign.SinglePlayer) postgameContinue.Visible = false;
             postgameContinue.GetText = () =>
             {
                 var state = world.LocalPlayer.WinState;
@@ -94,10 +96,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             };
             postgameContinue.OnClick = () =>
                 {
-                    if (Game.Settings.Campaign.SinglePlayer)
                     LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMaps());
-                    else
-                    LoadNextLevel(postgameContinue, world, Game.Settings.Server.Map);
                 };
 
 			postGameObserve.OnClick = () => postgameQuit.Visible = false;
