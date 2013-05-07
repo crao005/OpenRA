@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace OpenRA.FileFormats.Thirdparty
 {
@@ -29,9 +30,12 @@ namespace OpenRA.FileFormats.Thirdparty
 
             var yaml = MiniYaml.DictFromFile("mods/ra/campaigns/Allies.yaml");
           
+            //string pathstart = "mods\ra\maps";
+
             campaign = YamlList(yaml, "Campaign");
             if (num > campaign.Length) return "No Map Found";
-            return campaign[num-1];
+            //return campaign[num-1];
+            return GetHash(@"mods\ra\maps\"+campaign[num-1]);
         }
 
         /// <summary>
@@ -69,5 +73,19 @@ namespace OpenRA.FileFormats.Thirdparty
             return yaml[key].NodesDict.Keys.ToArray();
         }
 
+
+        static string GetHash(string path)
+        {
+            IFolder Container = FileSystem.OpenPackage(path, int.MaxValue);
+
+            // UID is calculated by taking an SHA1 of the yaml and binary data
+            // Read the relevant data into a buffer
+            var data = Container.GetContent("map.yaml").ReadAllBytes()
+                .Concat(Container.GetContent("map.bin").ReadAllBytes()).ToArray();
+
+            // Take the SHA1
+            using (var csp = SHA1.Create())
+                return new string(csp.ComputeHash(data).SelectMany(a => a.ToString("x2")).ToArray());
+        }
     }
 }
