@@ -2798,3 +2798,8 @@ v37:
 		Start: 0
 	damaged-idle:
 		Start: 1
+
+gcj:
+	idle:
+		Start: 0
+		Facings: 16
