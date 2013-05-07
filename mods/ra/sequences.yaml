@@ -2803,3 +2803,8 @@ gcj:
 	idle:
 		Start: 0
 		Facings: 16
+
+opj:
+	idle:
+		Start: 0
+		Facings: 16
