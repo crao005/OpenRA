@@ -149,10 +149,8 @@ namespace OpenRA.GameRules
 
     public class CampaignSettings
     {
-        /*
-             * Allies 01: bf46386b1c8e1618088d3c495d5beb93cac461f6
-             * Allies 02: e0624a4ba15d728c02f62566523c0279cc938fe2
-             */
+        // Selects the Allies campaign, initialises single player mode to false 
+        // and increments the next mission level.
         public bool SinglePlayer = false;
         public string Name = "Allies";
         public int NextMission = 1;

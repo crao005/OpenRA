@@ -78,11 +78,13 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
         void NewCampaign()
         {
+            // Game settings for the first map chosen are saved and set
             Game.Settings.Campaign.Name = "Allies";         
             Game.Settings.Campaign.NextMission = 1;
 
             Game.Settings.Save();
 
+            // Upon single player selection on main menu, the first Allies 01 map code is accessed
             OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(1));
         }
 
