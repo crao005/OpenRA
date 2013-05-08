@@ -47,17 +47,17 @@ Players:
 		Enemies: Allies,Creeps
 
 Actors:
-	AlliesJeep: gcj
+	AlliesJeep: opj
 		Location: 19,23
 		Owner: Allies
-	SovietsJeep: gcj
+	SovietsJeep: opj
 		Location: 27,23
 		Owner: Soviets
 
 Smudges:
 
 Rules:
-	GCJ:
+	OPJ:
 		Health:
 			HP: 10
 	Player:

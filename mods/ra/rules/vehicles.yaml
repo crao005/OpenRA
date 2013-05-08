@@ -776,3 +776,28 @@ GCJ:
 	AutoTarget:
 	DebugRetiliateAgainstAggressor:
 	DebugNextAutoTargetScanTime:
+
+OPJ:
+	Inherits: ^Vehicle
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Ranger
+		Description: Fast scout & anti-infantry vehicle.\n  Strong vs Infantry\n  Weak vs Tanks, Aircraft
+	Health:
+		HP: 150
+	Armor:
+		Type: Light
+	Mobile:
+		ROT: 10
+		Speed: 12
+	RevealsShroud:
+		Range: 8
+	Armament:
+		Weapon: M60mg
+		Offset: 0,0,85
+	AttackFrontal:
+	RenderUnit:
+	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:

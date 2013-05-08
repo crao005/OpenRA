@@ -216,6 +216,7 @@ namespace OpenRA.Editor
         }
 
 
+        private int imageWidth;
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -231,6 +232,7 @@ namespace OpenRA.Editor
                 this.Focus();
 
                 Image pic = Image.FromFile(fileName);
+                imageWidth = pic.Width;
                 //Resize(fileName,fileName);
                 
             pictureBox2.Image = pic;
@@ -255,7 +257,7 @@ namespace OpenRA.Editor
         private void tanslateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var src = textBox1.Text;
-            String[] arg = new String[] { "--shp",src, "32" };
+            String[] arg = new String[] { "--shp", src, imageWidth.ToString() };
             Command.ConvertPngToShp(arg);
             MessageBox.Show("Success!!");
         }
@@ -263,7 +265,7 @@ namespace OpenRA.Editor
         private void button3_Click(object sender, EventArgs e)
         {
             var src = textBox1.Text;
-            String[] arg = new String[] { "--shp", src, "32" };
+            String[] arg = new String[] { "--shp", src, (imageWidth/16).ToString() };
             Command.ConvertPngToShp(arg);
             MessageBox.Show("Success!!");
         }
