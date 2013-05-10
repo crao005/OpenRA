@@ -900,7 +900,7 @@ medi:
 		Start: 130
 		Length: 4
 		Facings: 8
-		
+
 mech:
 	stand:
 		Start: 0
@@ -1011,10 +1011,6 @@ pips:
 		Length: 10
 	medic:
 		Start: 20
-#	ready:
-#		Start: 3
-#	hold:
-#		Start: 4
 	tag-fake:
 		Start: 18
 	tag-primary:
@@ -1031,6 +1027,7 @@ pips:
 		Start: 4
 	pip-blue: pips2
 		Start: 5
+
 mig:
 	idle:
 		Start: 0
@@ -1093,7 +1090,7 @@ tran:
 	unload: tran2
 		Start: 32
 		Length: 4
-		
+
 tran1husk:
 	idle:
 		Start: 0
@@ -1110,10 +1107,10 @@ v2:
 		Facings: 32
 
 rallypoint:
-	flag:flagfly
+	flag: flagfly
 		Start: 0
 		Length: *
-	circles:fpls
+	circles: fpls
 		Start: 0
 		Length: *
 
@@ -1691,7 +1688,7 @@ e4:
 		Facings: 8
 
 fb1:
-	idle: 
+	idle:
 		Start: 0
 		Length: *
 
@@ -1896,6 +1893,7 @@ fb3:
 	idle:
 		Start: 0
 		Facings: 32
+
 fb4:
 	idle:
 		Start: 0
@@ -2148,7 +2146,7 @@ c2:
 		Start: 56
 		Length: 6
 		Facings: 8
-		
+
 c3:
 	stand:
 		Start: 0
@@ -2230,7 +2228,7 @@ einstein:
 		Start: 0
 		Length: 6
 		Tick: 1600
-		
+
 delphi:
 	stand:
 		Start: 0
@@ -2511,34 +2509,42 @@ boxes01:
 	idle:
 		Start: 0
 		Length: *
+
 boxes02:
 	idle:
 		Start: 0
 		Length: *
+
 boxes03:
 	idle:
 		Start: 0
 		Length: *
+
 boxes04:
 	idle:
 		Start: 0
 		Length: *
+
 boxes05:
 	idle:
 		Start: 0
 		Length: *
+
 boxes06:
 	idle:
 		Start: 0
 		Length: *
+
 boxes07:
 	idle:
 		Start: 0
 		Length: *
+
 boxes08:
 	idle:
 		Start: 0
 		Length: *
+
 boxes09:
 	idle:
 		Start: 0
@@ -2570,7 +2576,6 @@ overlay:
 	target-invalid:
 		Start: 1
 
-#Volkov
 e8:
 	stand:
 		Start: 0
@@ -2636,7 +2641,6 @@ ctnk:
 		Start: 0
 		Facings: 32
 
-#Desert Terrain Expansion 
 rock1:
 	idle:
 		Start: 0
@@ -2808,3 +2812,6 @@ opj:
 	idle:
 		Start: 0
 		Facings: 16
+
+
+
