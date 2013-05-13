@@ -77,3 +77,11 @@ Weapons:
 Voices:
 
 Notifications:
+
+Triggers:
+	Start:
+		Message: hello
+		Message: bye
+	OnTime: 1000
+		Message: hello
+		imeMessage: bye
