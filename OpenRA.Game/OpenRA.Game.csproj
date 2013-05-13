@@ -144,8 +144,8 @@
     <Compile Include="Orders\UnitOrderGenerator.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripting\Action.cs" />
-    <Compile Include="Scripting\Trigger.cs" />
+    <Compile Include="MissionScripting\Action.cs" />
+    <Compile Include="MissionScripting\Trigger.cs" />
     <Compile Include="Selection.cs" />
     <Compile Include="Server\Connection.cs" />
     <Compile Include="Server\Exts.cs" />

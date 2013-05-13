@@ -18,6 +18,7 @@ using OpenRA.Mods.RA.Move;
 using OpenRA.Scripting;
 using OpenRA.Traits;
 using System.Drawing;
+using OpenRA.MissionScripting;
 
 namespace OpenRA.Mods.RA.Missions
 {
@@ -45,6 +46,10 @@ namespace OpenRA.Mods.RA.Missions
         Actor sovietsjeep;
 		
 		World world;
+
+        // Scripting fields
+        Trigger[] triggers;
+
 
 		void MissionAccomplished(string text)
 		{
@@ -89,6 +94,10 @@ namespace OpenRA.Mods.RA.Missions
 			
 			MissionUtils.PlayMissionMusic();
             Game.AddChatLine(Color.Red, "Mission started", "Kill the enemy jeep!");
+
+            triggers = Trigger.LoadTriggers();
 		}
+
+        //private
 	}
 }
