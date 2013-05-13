@@ -77,6 +77,8 @@ namespace OpenRA.Mods.RA.Missions
 
 			if (alliesjeep != null && alliesjeep.Destroyed)
 				MissionFailed("Your jeep was destroyed.");
+
+            FireTriggers();
 		}
 
 		public void WorldLoaded(World w)
@@ -96,6 +98,8 @@ namespace OpenRA.Mods.RA.Missions
             Game.AddChatLine(Color.Red, "Mission started", "Kill the enemy jeep!");
 
             triggers = Trigger.LoadTriggers();
+
+            FireTriggers();
 		}
 
         private void FireTriggers()
