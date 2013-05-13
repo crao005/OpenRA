@@ -98,6 +98,12 @@ namespace OpenRA.Mods.RA.Missions
             triggers = Trigger.LoadTriggers();
 		}
 
-        //private
+        private void FireTriggers()
+        {
+            foreach (Trigger trigger in triggers)
+            {
+                trigger.CheckAndFire();
+            }
+        }
 	}
 }
