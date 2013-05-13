@@ -9,7 +9,23 @@ namespace OpenRA.Scripting
     {
         private Action[] Actions;
 
-        abstract public void CheckAndFire();
+        /// <summary>
+        /// This method will check if the trigger should fire and execute the actions appropriately.
+        /// </summary>
+        public sealed void CheckAndFire()
+        {
+            if (ConditionMet())
+            {
+                Execute();
+            }
+        }
+
+        /// <summary>
+        /// This method must be implemented by all Triggers to return true if the trigger should fire
+        /// and false otherwise.
+        /// </summary>
+        /// <returns>True if trigger should fire. False otherwise.</returns>
+        abstract protected bool ConditionMet();
         
         /// <summary>
         /// Call this method when all of the actions associated with this trigger should be executed.
