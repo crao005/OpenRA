@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using OpenRA.FileFormats;
+using OpenRA.Scripting;
 
 namespace OpenRA.AssetsBuilder
 {
@@ -15,9 +16,11 @@ namespace OpenRA.AssetsBuilder
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());                        
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Main()); 
+             
+            
         }
 
     }
