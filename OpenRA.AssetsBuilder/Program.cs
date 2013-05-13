@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using OpenRA.FileFormats;
-using OpenRA.Scripting;
-
 namespace OpenRA.AssetsBuilder
 {
     static class Program
