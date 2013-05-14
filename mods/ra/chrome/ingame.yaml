@@ -57,6 +57,27 @@ Container@INGAME_ROOT:
 					Height:25
 					Font:Bold
 					Text:Leave
+		Background@GAMEEND_BG:
+			X:(WINDOW_RIGHT - WIDTH)/2
+			Y:(WINDOW_BOTTOM - HEIGHT)/2
+			Width:400
+			Height:100
+			Background:dialog4
+			Visible:false
+			Children:
+				Label@TEXT:
+					X:(PARENT_RIGHT - WIDTH)/2
+					Y:0
+					Width:200
+					Height:80
+					Align:Center
+				Button@GAMEEND_CONTINUE:
+					X:10
+					Y:(PARENT_BOTTOM - HEIGHT - 10)
+					Width:150
+					Height:25
+					Font:Bold
+					Text:Continue
 		SupportPowerBin@INGAME_POWERS_BIN:
 			X:0
 			Y:25
