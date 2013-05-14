@@ -95,7 +95,9 @@ namespace OpenRA.Mods.RA.Missions
             sovietsjeep = actors["SovietsJeep"];
 			
 			MissionUtils.PlayMissionMusic();
-            Game.AddChatLine(Color.Red, "Mission started", "Kill the enemy jeep!");
+            //Naming convention necessary -> parameters for AddChatLine(Colour, PlayerName, Message) where 
+            //the colour only affects the PlayerName string
+            Game.AddChatLine(Color.White, "", "Mission started. Kill the enemy jeep!");
 
             triggers = Trigger.LoadTriggers();
 
@@ -106,7 +108,10 @@ namespace OpenRA.Mods.RA.Missions
         {
             foreach (Trigger trigger in triggers)
             {
-                trigger.CheckAndFire();
+                if (trigger != null)
+                {
+                    trigger.CheckAndFire();
+                }
             }
         }
 	}

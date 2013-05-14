@@ -84,4 +84,4 @@ Triggers:
 		
 	OnTime: 1000
 		Message: hello
-		imeMessage: bye
+		Message: bye
