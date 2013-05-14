@@ -80,8 +80,8 @@ Notifications:
 
 Triggers:
 	Start:
-		Message: hello
-		Message: bye
+		Message: hello,bye
+		
 	OnTime: 1000
 		Message: hello
 		imeMessage: bye
