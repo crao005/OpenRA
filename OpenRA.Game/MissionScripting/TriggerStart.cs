@@ -5,11 +5,11 @@ using System.Text;
 
 namespace OpenRA.MissionScripting
 {
-    class TriggerStart : Trigger
+    public class TriggerStart : Trigger
     {
         bool canFire = true;
         
-        protected bool ConditionMet()
+        override protected bool ConditionMet()
         {
             if (canFire)
             {

@@ -101,6 +101,9 @@ namespace OpenRA.Mods.RA.Missions
 
             triggers = Trigger.LoadTriggers();
 
+            //triggers = new List<Trigger>();
+            //triggers.Add(new TriggerStart().AddAction(new ActionMessage("This is the test start trigger")));
+
             FireTriggers();
 		}
 
