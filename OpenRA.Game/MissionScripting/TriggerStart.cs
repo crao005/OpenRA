@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OpenRA.MissionScripting
 {
-    class TriggerTest : Trigger
+    class TriggerStart : Trigger
     {
         bool canFire = true;
         

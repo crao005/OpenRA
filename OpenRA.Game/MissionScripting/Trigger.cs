@@ -90,9 +90,9 @@ namespace OpenRA.MissionScripting
                 foreach (var item in Messages)
                     Console.WriteLine(item.ToString());
 
-                return new Trigger[1];
+                return new List<Trigger>();
             }
-            return null;
+            return new List<Trigger>();
         }
 
         static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
