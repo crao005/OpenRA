@@ -108,7 +108,10 @@ namespace OpenRA.Mods.RA.Missions
         {
             foreach (Trigger trigger in triggers)
             {
-                trigger.CheckAndFire();
+                if (trigger != null)
+                {
+                    trigger.CheckAndFire();
+                }
             }
         }
 	}
