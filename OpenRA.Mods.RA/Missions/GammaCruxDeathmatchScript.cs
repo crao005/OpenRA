@@ -48,7 +48,7 @@ namespace OpenRA.Mods.RA.Missions
 		World world;
 
         // Scripting fields
-        Trigger[] triggers;
+        private List<Trigger> triggers;
 
 
 		void MissionAccomplished(string text)

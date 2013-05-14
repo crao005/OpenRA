@@ -80,8 +80,14 @@ Notifications:
 
 Triggers:
 	Start:
-		Message: hello
-		Message: bye
-	OnTime: 1000
-		Message: hello
-		Message: bye
+		SayHello:
+			Message: Hello.
+		SayBye:
+			Message: Bye.
+	OnTime: 
+		OneSecond: 1000
+			Message: One second has passed.
+		CreateJeepAtTwoSeconds: 2000
+			Message: Jeep Created.
+	
+

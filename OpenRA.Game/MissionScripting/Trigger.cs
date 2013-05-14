@@ -7,7 +7,23 @@ namespace OpenRA.MissionScripting
 {
     public abstract class Trigger
     {
-        private Action[] Actions;
+        private List<Action> Actions { get; set; }
+
+        public Trigger()
+        {
+            Actions = new List<Action>();
+        }
+
+        /// <summary>
+        /// Add an action to this trigger. The trigger returns itself for concatenated adding.
+        /// </summary>
+        /// <param name="action">The action to add.</param>
+        /// <returns>The trigger itself.</returns>
+        public Trigger AddAction(Action action)
+        {
+            Actions.Add(action);
+            return this;
+        }
 
         /// <summary>
         /// This method will check if the trigger should fire and execute the actions appropriately.
@@ -34,7 +50,10 @@ namespace OpenRA.MissionScripting
         {
             foreach (Action action in Actions)
             {
-                action.Execute();
+                if (action != null)
+                {
+                    action.Execute();
+                }
             }
         }
 
@@ -42,10 +61,10 @@ namespace OpenRA.MissionScripting
         /// This method will load all of the triggers for a given map file, instantiate them, and return them in an array.
         /// </summary>
         /// <returns>An array of Trigger instances.</returns>
-        public static Trigger[] LoadTriggers()
+        public static List<Trigger> LoadTriggers()
         {
             //create trigger objects based on map.yaml file and return them in an array.
-            return new Trigger[1];
+            return new List<Trigger>();
         }
 
     }

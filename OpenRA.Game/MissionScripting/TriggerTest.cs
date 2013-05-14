@@ -7,13 +7,13 @@ namespace OpenRA.MissionScripting
 {
     class TriggerTest : Trigger
     {
-        bool once = true;
+        bool canFire = true;
         
         protected bool ConditionMet()
         {
-            if (once)
+            if (canFire)
             {
-                once = false;
+                canFire = false;
                 return true;
             }
 
