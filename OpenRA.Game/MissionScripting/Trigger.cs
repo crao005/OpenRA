@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OpenRA.FileFormats;
 
 namespace OpenRA.MissionScripting
 {
@@ -42,11 +43,11 @@ namespace OpenRA.MissionScripting
         /// </summary>
         /// <returns>True if trigger should fire. False otherwise.</returns>
         abstract protected bool ConditionMet();
-        
+
         /// <summary>
         /// Call this method when all of the actions associated with this trigger should be executed.
         /// </summary>
-        protected void Execute() 
+        protected void Execute()
         {
             foreach (Action action in Actions)
             {
@@ -65,6 +66,41 @@ namespace OpenRA.MissionScripting
         {
             //create trigger objects based on map.yaml file and return them in an array.
             return new List<Trigger>();
+
+            var map = MiniYaml.DictFromFile("mods/ra/maps/gamma-crux-deathmatch/map.yaml");
+             
+            if (map.ContainsKey("Triggers"))
+            {
+                var traggerYamlNodes = map["Triggers"].NodesDict;
+                string[] Start = YamlList(traggerYamlNodes, "Start");
+                string[] OnTime = YamlList(traggerYamlNodes, "OnTime");
+
+                foreach (var item in Start)
+                    Console.WriteLine(item.ToString());
+                foreach (var item in OnTime)
+                    Console.WriteLine(item.ToString());
+
+                var StartChildren = traggerYamlNodes["Start"].NodesDict;
+                string[] Messages = YamlList(traggerYamlNodes, "Message");
+                foreach (var item in Messages)
+                    Console.WriteLine(item.ToString());
+
+                var OnTimeChildren = traggerYamlNodes["OnTime"].NodesDict;
+                Messages = YamlList(traggerYamlNodes, "Message");
+                foreach (var item in Messages)
+                    Console.WriteLine(item.ToString());
+
+                return new Trigger[1];
+            }
+            return null;
+        }
+
+        static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
+        {
+            if (!yaml.ContainsKey(key))
+                return new string[] { };
+
+            return yaml[key].NodesDict.Keys.ToArray();
         }
 
     }
