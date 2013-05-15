@@ -86,5 +86,5 @@ Triggers:
 			Message: Bye
 		
 	OnTime: 
-		OneSecond:1000		
-		Message: hello
+		OneSecond: 25	
+			Message: hello
