@@ -64,8 +64,14 @@ namespace OpenRA.MissionScripting
         /// <returns>An array of Trigger instances.</returns>
         public static List<Trigger> LoadTriggers()
         {
-            //create trigger objects based on map.yaml file and return them in an array.
-            return new List<Trigger>();
+            //create trigger objects based on map.yaml file and return them in an array. 
+
+            List<Trigger> triggerList = new List<Trigger>();
+
+            Trigger trigger = new TriggerStart();
+            
+
+           
 
             var map = MiniYaml.DictFromFile("mods/ra/maps/gamma-crux-deathmatch/map.yaml");
              
@@ -75,24 +81,22 @@ namespace OpenRA.MissionScripting
                 string[] Start = YamlList(traggerYamlNodes, "Start");
                 string[] OnTime = YamlList(traggerYamlNodes, "OnTime");
 
-                foreach (var item in Start)
-                    Console.WriteLine(item.ToString());
-                foreach (var item in OnTime)
-                    Console.WriteLine(item.ToString());
-
                 var StartChildren = traggerYamlNodes["Start"].NodesDict;
-                string[] Messages = YamlList(traggerYamlNodes, "Message");
-                foreach (var item in Messages)
-                    Console.WriteLine(item.ToString());
+                foreach (var item in StartChildren)
+                {
+                    var child = item.Value.NodesDict;
+                    if (child.ContainsKey("Message"))
+                    {
+                        Action message = new ActionMessage(child["Message"].Value);
+                        triggerList.Add(trigger.AddAction(message));                       
+                    }
+                }
 
                 var OnTimeChildren = traggerYamlNodes["OnTime"].NodesDict;
-                Messages = YamlList(traggerYamlNodes, "Message");
-                foreach (var item in Messages)
-                    Console.WriteLine(item.ToString());
-
-                return new List<Trigger>();
+               
+              
             }
-            return new List<Trigger>();
+            return triggerList;
         }
 
         static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
