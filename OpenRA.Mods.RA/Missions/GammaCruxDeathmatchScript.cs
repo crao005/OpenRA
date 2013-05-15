@@ -101,8 +101,12 @@ namespace OpenRA.Mods.RA.Missions
 
             triggers = Trigger.LoadTriggers();
 
-            //triggers = new List<Trigger>();
-            //triggers.Add(new TriggerStart().AddAction(new ActionMessage("This is the test start trigger")));
+            /* Testing purposes
+            triggers = new List<Trigger>();
+            triggers.Add(new TriggerStart().AddAction(new ActionMessage("This is the test start trigger")));
+            triggers.Add(new TriggerOnTime(125).AddAction(new ActionMessage("This is the test on 5 seconds trigger")));
+            triggers.Add(new TriggerOnTime(1500).AddAction(new ActionMessage("This is the test on 1 minute trigger")));
+            */
 
             FireTriggers();
 		}
