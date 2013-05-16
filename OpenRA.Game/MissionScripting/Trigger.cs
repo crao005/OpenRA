@@ -68,9 +68,6 @@ namespace OpenRA.MissionScripting
 
             List<Trigger> triggerList = new List<Trigger>();
 
-            Trigger trigger = new TriggerStart();
-            
-
             var map = MiniYaml.DictFromFile("mods/ra/maps/gamma-crux-deathmatch/map.yaml");
              
             if (map.ContainsKey("Triggers"))
@@ -85,12 +82,24 @@ namespace OpenRA.MissionScripting
                     var child = item.Value.NodesDict;
                     if (child.ContainsKey("Message"))
                     {
+                        Trigger trigger = new TriggerStart();
                         Action message = new ActionMessage(child["Message"].Value);
                         triggerList.Add(trigger.AddAction(message));                       
                     }
                 }
 
                 var OnTimeChildren = triggerYamlNodes["OnTime"].NodesDict;
+                foreach (var item in OnTimeChildren)
+                {
+                    int time = Convert.ToInt32(item.Value.Value);
+                    Trigger trigger = new TriggerOnTime(time);
+                    var child = item.Value.NodesDict;
+                    if (child.ContainsKey("Message"))
+                    {
+                        Action message = new ActionMessage(child["Message"].Value);
+                        triggerList.Add(trigger.AddAction(message));
+                    }
+                }
                
               
             }

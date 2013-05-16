@@ -80,10 +80,10 @@ Notifications:
 
 Triggers:
 	Start:
-		SayHello:
+		MissionInstructions:
 			Message: Kill the enemy jeep!
-		SayBye:
-			Message: NOOOOOW!!
+		ASAP:
+			Message: ASAP!
 	OnTime: 
-		OneSecond: 125
-			Message: I said NOW!
+		Impatience: 100
+			Message: I said now, Soldier!
