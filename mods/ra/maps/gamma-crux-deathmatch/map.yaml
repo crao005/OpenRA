@@ -81,10 +81,9 @@ Notifications:
 Triggers:
 	Start:
 		SayHello:
-			Message: hello
+			Message: Kill the enemy jeep!
 		SayBye:
-			Message: Bye
-		
+			Message: NOOOOOW!!
 	OnTime: 
-		OneSecond: 25	
-			Message: hello
+		OneSecond: 125
+			Message: I said NOW!
