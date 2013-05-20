@@ -78,6 +78,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
 			optionsBG.Get("SURRENDER").IsVisible = () => (world.LocalPlayer != null && world.LocalPlayer.WinState == WinState.Undefined);
 
+            /**
+
 			var postgameBG = gameRoot.Get("POSTGAME_BG");
 			var postgameText = postgameBG.Get<LabelWidget>("TEXT");
 			var postGameObserve = postgameBG.Get<ButtonWidget>("POSTGAME_OBSERVE");
@@ -107,40 +109,42 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 				return postgameQuit.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
 			};
 
-
+            
 			postgameText.GetText = () =>
 			{
 				var state = world.LocalPlayer.WinState;
 				return state == WinState.Undefined ? "" :
 								(state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS!! \nYOU ARE VICTORIOUS!");
 			};
-
+            */
+            
             // Adds in a new end game victory panel to show the end of the entire campaign levels
-            if (OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap()=="No Map Found")
+            if (OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.isLastMap()) //world.LocalPlayer.WinState.Equals(OpenRA.WinState.Won))
             {
+
+                //Ui.OpenWindow("GAMEEND_BG", new WidgetArgs() { });
                 var gameendBG = gameRoot.Get("GAMEEND_BG"); 
                 var gameendText = gameendBG.Get<LabelWidget>("TEXT");
+                var gameendQuit = gameendBG.Get<ButtonWidget>("GAMEEND_QUIT");
+                
+                gameendQuit.OnClick = () => LeaveGame(gameendQuit, world);
+
+                gameendBG.IsVisible = () =>
+                {
+                    return gameendQuit.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
+                };
+                
                 gameendText.GetText = () =>
                 {
                     var gameState = world.LocalPlayer.WinState;
-                    return gameState == WinState.Won ? "" :
-                        (gameState == WinState.Won ? "" : "CONGRATULATIONS!! \nYOU HAVE WON THE GAME!");
+                    return gameState == WinState.Undefined ? "" :
+                        (gameState == WinState.Won ? "CONGRATULATIONS!! \nYOU HAVE WON THE GAME!" : "YOU LOST!! SHAME!!");
                 };
-                /**
-                 * gameendBG.IsVisible = () =>
-			{
-				return postgameQuit.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
-			};
+           
                 
-                var gameendContinue = postgameBG.Get<ButtonWidget>("GAMEEND_CONTINUE");
-                gameendContinue.OnClick = () =>
-                {
-                    gameendContinue.OnClick = () => LeaveGame(postgameQuit, world);
-
-                };
-                 */
-            }
-		}
+           
+           }
+        }
 
         void LeaveGame(Widget pane, World world)
         {
