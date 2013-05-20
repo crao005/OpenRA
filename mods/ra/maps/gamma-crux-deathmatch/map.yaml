@@ -85,5 +85,5 @@ Triggers:
 		ASAP:
 			Message: ASAP!
 	OnTime: 
-		Impatience: 100
+		FourSeconds: 100
 			Message: I said now, Soldier!
