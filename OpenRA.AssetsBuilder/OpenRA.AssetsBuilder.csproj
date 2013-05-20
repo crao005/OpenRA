@@ -91,6 +91,10 @@
       <Project>{BDAEAB25-991E-46A7-AF1E-4F0E03358DAA}</Project>
       <Name>OpenRA.FileFormats</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OpenRA.Game\OpenRA.Game.csproj">
+      <Project>{0DFB103F-2962-400F-8C6D-E2C28CCBA633}</Project>
+      <Name>OpenRA.Game</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenRA.Utility\OpenRA.Utility.csproj">
       <Project>{F33337BE-CB69-4B24-850F-07D23E408DDF}</Project>
       <Name>OpenRA.Utility</Name>

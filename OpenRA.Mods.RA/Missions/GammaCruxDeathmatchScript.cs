@@ -48,7 +48,7 @@ namespace OpenRA.Mods.RA.Missions
 		World world;
 
         // Scripting fields
-        Trigger[] triggers;
+        private List<Trigger> triggers;
 
 
 		void MissionAccomplished(string text)
@@ -95,9 +95,18 @@ namespace OpenRA.Mods.RA.Missions
             sovietsjeep = actors["SovietsJeep"];
 			
 			MissionUtils.PlayMissionMusic();
-            Game.AddChatLine(Color.Red, "Mission started", "Kill the enemy jeep!");
+            //Naming convention necessary -> parameters for AddChatLine(Colour, PlayerName, Message) where 
+            //the colour only affects the PlayerName string
+            Game.AddChatLine(Color.White, "", "Mission started. Kill the enemy jeep!");
 
             triggers = Trigger.LoadTriggers();
+
+            /* Testing purposes
+            triggers = new List<Trigger>();
+            triggers.Add(new TriggerStart().AddAction(new ActionMessage("This is the test start trigger")));
+            triggers.Add(new TriggerOnTime(125).AddAction(new ActionMessage("This is the test on 5 seconds trigger")));
+            triggers.Add(new TriggerOnTime(1500).AddAction(new ActionMessage("This is the test on 1 minute trigger")));
+            */
 
             FireTriggers();
 		}
@@ -106,7 +115,10 @@ namespace OpenRA.Mods.RA.Missions
         {
             foreach (Trigger trigger in triggers)
             {
-                trigger.CheckAndFire();
+                if (trigger != null)
+                {
+                    trigger.CheckAndFire();
+                }
             }
         }
 	}

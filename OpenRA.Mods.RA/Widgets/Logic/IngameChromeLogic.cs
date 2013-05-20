@@ -17,12 +17,12 @@ using System.Drawing;
 
 namespace OpenRA.Mods.RA.Widgets.Logic
 {
-	public class IngameChromeLogic
-	{
-		Widget gameRoot;
+    public class IngameChromeLogic
+    {
+        Widget gameRoot;
 
-		[ObjectCreator.UseCtor]
-		public IngameChromeLogic(World world)
+        [ObjectCreator.UseCtor]
+        public IngameChromeLogic(World world)
 		{
 			var r = Ui.Root;
 			gameRoot = r.Get("INGAME_ROOT");
@@ -98,10 +98,10 @@ namespace OpenRA.Mods.RA.Widgets.Logic
                 {
                     LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());
                 };
-
+            
 			postGameObserve.OnClick = () => postgameQuit.Visible = false;
 			postGameObserve.IsVisible = () => world.LocalPlayer.WinState != WinState.Won;
-
+                                
 			postgameBG.IsVisible = () =>
 			{
 				return postgameQuit.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
@@ -114,19 +114,45 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 				return state == WinState.Undefined ? "" :
 								(state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS!! \nYOU ARE VICTORIOUS!");
 			};
+
+            // Adds in a new end game victory panel to show the end of the entire campaign levels
+            if (OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap()=="No Map Found")
+            {
+                var gameendBG = gameRoot.Get("GAMEEND_BG"); 
+                var gameendText = gameendBG.Get<LabelWidget>("TEXT");
+                gameendText.GetText = () =>
+                {
+                    var gameState = world.LocalPlayer.WinState;
+                    return gameState == WinState.Won ? "" :
+                        (gameState == WinState.Won ? "" : "CONGRATULATIONS!! \nYOU HAVE WON THE GAME!");
+                };
+                /**
+                 * gameendBG.IsVisible = () =>
+			{
+				return postgameQuit.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
+			};
+                
+                var gameendContinue = postgameBG.Get<ButtonWidget>("GAMEEND_CONTINUE");
+                gameendContinue.OnClick = () =>
+                {
+                    gameendContinue.OnClick = () => LeaveGame(postgameQuit, world);
+
+                };
+                 */
+            }
 		}
 
-		void LeaveGame(Widget pane, World world)
-		{
-			Sound.PlayNotification(null, "Speech", "Leave", world.LocalPlayer.Country.Race);
-			pane.Visible = false;
-			Game.Disconnect();
-			Game.LoadShellMap();
-			Ui.CloseWindow();
-			Ui.OpenWindow("MAINMENU_BG");
-		}
+        void LeaveGame(Widget pane, World world)
+        {
+            Sound.PlayNotification(null, "Speech", "Leave", world.LocalPlayer.Country.Race);
+            pane.Visible = false;
+            Game.Disconnect();
+            Game.LoadShellMap();
+            Ui.CloseWindow();
+            Ui.OpenWindow("MAINMENU_BG");
+        }
 
-        void LoadNextLevel(Widget pane, World world,string map)
+        void LoadNextLevel(Widget pane, World world, string map)
         {
             Sound.PlayNotification(null, "Speech", "Leave", world.LocalPlayer.Country.Race);
             pane.Visible = false;
@@ -139,8 +165,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
             // Begin with Allies 01
             Game.Settings.Server.Map = map;
-           
-            
+
+
 
             //Auto-set settings
             Game.Settings.Server.ListenPort = 1234;
@@ -156,10 +182,10 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             // Create the server
             Game.CreateServer(settings);
             ConnectionLogic.Connect(IPAddress.Loopback.ToString(), Game.Settings.Server.ListenPort,
-                () => Game.OpenWindow("SINGLEPLAYER_BG", new WidgetArgs(){}),
+                () => Game.OpenWindow("SINGLEPLAYER_BG", new WidgetArgs() { }),
                 () => { });
-           
+
         }
-        
-	}
+
+    }
 }
