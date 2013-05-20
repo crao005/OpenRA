@@ -34,9 +34,35 @@ namespace OpenRA.FileFormats.Thirdparty
             campaign = YamlList(yaml, "Campaign");
 
             // Check statement to cleanly end with message if no map is found
-            if (num > campaign.Length) return "No Map Found";
+            if (num > campaign.Length)
+                return "No Map Found";
 
             return GetHash(@"mods\ra\maps\"+campaign[num-1]);
+        }
+
+        public static bool isLastMap()
+        {
+            int num = 1;
+            String[] campaign;
+
+            var yaml = MiniYaml.DictFromFile("mods/ra/campaigns/Allies.yaml");
+            campaign = YamlList(yaml, "Campaign");
+
+            var setting = MiniYaml.DictFromFile(Platform.SupportDir + "settings.yaml");
+
+            if (setting.ContainsKey("Campaign"))
+            {
+                var settingCampaign = setting["Campaign"].NodesDict;
+                if (settingCampaign.ContainsKey("NextMission"))
+                {
+                    num = Convert.ToInt32(settingCampaign["NextMission"].Value);
+                }
+            }
+
+            // if no map is found then method returns true
+            if (num > campaign.Length) return true;
+           
+            return false;
         }
 
         /// <summary>
