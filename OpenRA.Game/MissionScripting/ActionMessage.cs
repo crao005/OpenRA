@@ -8,9 +8,9 @@ namespace OpenRA.MissionScripting
 {
     public class ActionMessage:Action 
     {
-        public Color colour;
-        public String playerName;
-        public String message;
+        private Color colour;
+        private String playerName;
+        private String message;
 
         //Default. Used for only message displays.
         public ActionMessage(String message)
