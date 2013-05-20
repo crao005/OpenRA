@@ -87,3 +87,5 @@ Triggers:
 	OnTime: 
 		FourSeconds: 100
 			Message: I said now, Soldier!
+		WinAfter10Seconds: 250
+			Win: Ten Seconds Passed.

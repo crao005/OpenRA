@@ -62,7 +62,7 @@ namespace OpenRA.MissionScripting
         /// This method will load all of the triggers for a given map file, instantiate them, and return them in an array.
         /// </summary>
         /// <returns>An array of Trigger instances.</returns>
-        public static List<Trigger> LoadTriggers()
+        public static List<Trigger> LoadTriggers(World world)
         {
             //create trigger objects based on map.yaml file and return them in an array. 
 
@@ -86,6 +86,12 @@ namespace OpenRA.MissionScripting
                         Action message = new ActionMessage(child["Message"].Value);
                         triggerList.Add(trigger.AddAction(message));                       
                     }
+                    if (child.ContainsKey("Win"))
+                    {
+                        Trigger trigger = new TriggerStart();
+                        Action win = new ActionWin(world, child["Win"].Value);
+                        triggerList.Add(trigger.AddAction(win));
+                    }
                 }
 
                 var OnTimeChildren = triggerYamlNodes["OnTime"].NodesDict;
@@ -98,6 +104,11 @@ namespace OpenRA.MissionScripting
                     {
                         Action message = new ActionMessage(child["Message"].Value);
                         triggerList.Add(trigger.AddAction(message));
+                    }
+                    if (child.ContainsKey("Win"))
+                    {
+                        Action win = new ActionWin(world, child["Win"].Value);
+                        triggerList.Add(trigger.AddAction(win));
                     }
                 }
                

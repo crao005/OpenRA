@@ -153,9 +153,9 @@ namespace OpenRA.Mods.RA.Missions
 				player.WinState = WinState.Won;
 
             if(Game.Settings.Campaign.SinglePlayer){
-            // Added by Gamma Crux
-            Game.Settings.Campaign.NextMission++;
-            Game.Settings.Save();
+                // Added by Gamma Crux
+                Game.Settings.Campaign.NextMission++;
+                Game.Settings.Save();
             }
 
 			if (text != null)

@@ -18,7 +18,7 @@ namespace OpenRA.AssetsBuilder
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Main()); 
-            Trigger.LoadTriggers();
+            //Trigger.LoadTriggers();
             
         }
 

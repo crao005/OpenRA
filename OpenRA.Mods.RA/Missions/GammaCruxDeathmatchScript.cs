@@ -96,7 +96,7 @@ namespace OpenRA.Mods.RA.Missions
 			
 			MissionUtils.PlayMissionMusic();
 
-            triggers = Trigger.LoadTriggers();
+            triggers = Trigger.LoadTriggers(w);
 
             FireTriggers();
 		}
