@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using OpenRA;
+using OpenRA.Traits;
 
 namespace OpenRA.MissionScripting
 {
-    public class ActionWin:Action 
+    public class ActionLose:Action 
     {
         private World world;
         private string text;
 
-        public ActionWin(World world, string message)
+        public ActionLose(World world, string message)
         {
             this.world = world;
             text = message;
@@ -20,22 +21,18 @@ namespace OpenRA.MissionScripting
 
         public void Execute()
         {
-            
             Player player = this.world.Players.Single(p => p.PlayerReference.Playable == true);
 
-            player.WinState = WinState.Won;
-
-            // Save single player progress
-            if (Game.Settings.Campaign.SinglePlayer)
+            player.WinState = WinState.Lost;
+            foreach (var actor in world.Actors.Where(a => a.IsInWorld && a.Owner == player && !a.IsDead()))
             {
-                Game.Settings.Campaign.NextMission++;
-                Game.Settings.Save();
+                actor.Kill(actor);
             }
 
             if (text != null)
-                Game.AddChatLine(Color.Blue, "Mission accomplished", text);
+                Game.AddChatLine(Color.Red, "Mission failed", text);
 
-            Sound.Play("misnwon1.aud");
+            Sound.Play("misnlst1.aud");
         }
     }
 }

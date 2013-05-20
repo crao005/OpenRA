@@ -77,26 +77,32 @@ namespace OpenRA.MissionScripting
                 string[] Start = YamlList(triggerYamlNodes, "Start");
                 string[] OnTime = YamlList(triggerYamlNodes, "OnTime");
 
-                // start aciton
+                // start trigger
                 var StartChildren = triggerYamlNodes["Start"].NodesDict;
                 foreach (var item in StartChildren)
                 {
                     var child = item.Value.NodesDict;
+
+                    Trigger trigger = new TriggerStart();
+
                     if (child.ContainsKey("Message"))
                     {
-                        Trigger trigger = new TriggerStart();
                         Action message = new ActionMessage(child["Message"].Value);
                         triggerList.Add(trigger.AddAction(message));                       
                     }
                     if (child.ContainsKey("Win"))
                     {
-                        Trigger trigger = new TriggerStart();
                         Action win = new ActionWin(world, child["Win"].Value);
                         triggerList.Add(trigger.AddAction(win));
                     }
+                    if (child.ContainsKey("Lose"))
+                    {
+                        Action lose = new ActionLose(world, child["Lose"].Value);
+                        triggerList.Add(trigger.AddAction(lose));
+                    }
                 }
 
-                // ontime action
+                // ontime trigger
                 var OnTimeChildren = triggerYamlNodes["OnTime"].NodesDict;
                 foreach (var item in OnTimeChildren)
                 {
@@ -113,9 +119,15 @@ namespace OpenRA.MissionScripting
                         Action win = new ActionWin(world, child["Win"].Value);
                         triggerList.Add(trigger.AddAction(win));
                     }
+                    if (child.ContainsKey("Lose"))
+                    {
+                        Action lose = new ActionLose(world, child["Lose"].Value);
+                        triggerList.Add(trigger.AddAction(lose));
+                    }
                 }
 
-                // win action
+                /*
+                // win trigger
                 var WinChildren = triggerYamlNodes["Win"].NodesDict;
                 foreach (var item in WinChildren)
                 {
@@ -127,7 +139,7 @@ namespace OpenRA.MissionScripting
                         triggerList.Add(trigger.AddAction(message));
                     }
                 }
-                // lose action
+                // lose trigger
                 var LoseChildren = triggerYamlNodes["Lose"].NodesDict;
                 foreach (var item in LoseChildren)
                 {
@@ -139,7 +151,7 @@ namespace OpenRA.MissionScripting
                         triggerList.Add(trigger.AddAction(message));
                     }
                 }
-              
+                */
             }
             return triggerList;
         }
