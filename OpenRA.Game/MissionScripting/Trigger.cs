@@ -72,10 +72,12 @@ namespace OpenRA.MissionScripting
              
             if (map.ContainsKey("Triggers"))
             {
+                
                 var triggerYamlNodes = map["Triggers"].NodesDict;
                 string[] Start = YamlList(triggerYamlNodes, "Start");
                 string[] OnTime = YamlList(triggerYamlNodes, "OnTime");
 
+                // start aciton
                 var StartChildren = triggerYamlNodes["Start"].NodesDict;
                 foreach (var item in StartChildren)
                 {
@@ -88,6 +90,7 @@ namespace OpenRA.MissionScripting
                     }
                 }
 
+                // ontime action
                 var OnTimeChildren = triggerYamlNodes["OnTime"].NodesDict;
                 foreach (var item in OnTimeChildren)
                 {
@@ -100,12 +103,42 @@ namespace OpenRA.MissionScripting
                         triggerList.Add(trigger.AddAction(message));
                     }
                 }
-               
+
+                // win action
+                var WinChildren = triggerYamlNodes["Win"].NodesDict;
+                foreach (var item in WinChildren)
+                {
+                    var child = item.Value.NodesDict;
+                    if (child.ContainsKey("Message"))
+                    {
+                        Trigger trigger = new TriggerStart();// warning here should be Trigger Win for win action
+                        Action message = new ActionMessage(child["Message"].Value);
+                        triggerList.Add(trigger.AddAction(message));
+                    }
+                }
+                // lose action
+                var LoseChildren = triggerYamlNodes["Lose"].NodesDict;
+                foreach (var item in LoseChildren)
+                {
+                    var child = item.Value.NodesDict;
+                    if (child.ContainsKey("Message"))
+                    {
+                        Trigger trigger = new TriggerStart();// warning here should be Trigger Lose for lose action
+                        Action message = new ActionMessage(child["Message"].Value);
+                        triggerList.Add(trigger.AddAction(message));
+                    }
+                }
               
             }
             return triggerList;
         }
-
+        
+        /// <summary>t
+        /// This static method is used for LoadTriggers to Transform Yaml Dictionary format to string array 
+        /// </summary>
+        /// <param name="yaml"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
         {
             if (!yaml.ContainsKey(key))

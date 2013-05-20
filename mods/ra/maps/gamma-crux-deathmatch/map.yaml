@@ -88,4 +88,9 @@ Triggers:
 	OnTime: 
 		name: 25
 			Message: hello
-			
+	Win:
+		name:
+			Message: win
+	Lose:
+		name:
+			Message: lose			
