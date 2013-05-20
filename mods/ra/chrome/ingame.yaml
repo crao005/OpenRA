@@ -71,13 +71,13 @@ Container@INGAME_ROOT:
 					Width:200
 					Height:80
 					Align:Center
-				Button@GAMEEND_CONTINUE:
-					X:10
+				Button@GAMEEND_QUIT:
+					X:20
 					Y:(PARENT_BOTTOM - HEIGHT - 10)
 					Width:150
 					Height:25
 					Font:Bold
-					Text:Continue
+					Text:Quitwarblgrbl
 		SupportPowerBin@INGAME_POWERS_BIN:
 			X:0
 			Y:25
