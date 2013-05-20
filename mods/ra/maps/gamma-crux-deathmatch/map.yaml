@@ -80,14 +80,13 @@ Notifications:
 
 Triggers:
 	Start:
-		SayHello:
-			Message: hello
-		SayBye:
-			Message: Bye
-		
+		MissionInstructions:
+			Message: Kill the enemy jeep!
+		ASAP:
+			Message: ASAP!
 	OnTime: 
-		name: 25
-			Message: hello
+		FourSeconds: 100
+			Message: I said now, Soldier!
 	Win:
 		name:
 			Message: win

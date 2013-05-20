@@ -81,6 +81,7 @@
     <Compile Include="ActorMap.cs" />
     <Compile Include="ActorReference.cs" />
     <Compile Include="Graphics\QuadRenderer.cs" />
+    <Compile Include="MissionScripting\ActionWin.cs" />
     <Compile Include="MissionScripting\TriggerOnTime.cs" />
     <Compile Include="MissionScripting\TriggerStart.cs" />
     <Compile Include="MissionScripting\ActionMessage.cs" />
