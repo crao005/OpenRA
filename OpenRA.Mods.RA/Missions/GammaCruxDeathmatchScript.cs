@@ -40,43 +40,15 @@ namespace OpenRA.Mods.RA.Missions
 		const string KillJeep = "Kill the enemy jeep!";
 
 		Player allies;
-		Player soviets;
-
-        Actor alliesjeep;
-        Actor sovietsjeep;
 		
 		World world;
 
         // Scripting fields
-        Trigger[] triggers;
-
-
-		void MissionAccomplished(string text)
-		{
-			MissionUtils.CoopMissionAccomplished(world, text, allies);
-		}
-
-		void MissionFailed(string text)
-		{
-			MissionUtils.CoopMissionFailed(world, text, allies);
-		}
+        private List<Trigger> triggers;
 
 		public void Tick(Actor self)
 		{
 			if (allies.WinState != WinState.Undefined) return;
-
-			if (objectives[KillJeepID].Status == ObjectiveStatus.InProgress)
-			{
-                if (sovietsjeep != null && sovietsjeep.Destroyed)
-                {
-                    objectives[KillJeepID].Status = ObjectiveStatus.Completed;
-                    OnObjectivesUpdated(true);
-                    MissionAccomplished("You killed the enemy jeep!");
-                }
-			}
-
-			if (alliesjeep != null && alliesjeep.Destroyed)
-				MissionFailed("Your jeep was destroyed.");
 
             FireTriggers();
 		}
@@ -86,20 +58,12 @@ namespace OpenRA.Mods.RA.Missions
 			world = w;
 
 			allies = w.Players.Single(p => p.InternalName == "Allies");
-			soviets = w.Players.Single(p => p.InternalName == "Soviets");
-
+			
 			allies.PlayerActor.Trait<PlayerResources>().Cash = 0;
 
-			var actors = w.WorldActor.Trait<SpawnMapActors>().Actors;
-			alliesjeep = actors["AlliesJeep"];
-            sovietsjeep = actors["SovietsJeep"];
-			
 			MissionUtils.PlayMissionMusic();
-            //Naming convention necessary -> parameters for AddChatLine(Colour, PlayerName, Message) where 
-            //the colour only affects the PlayerName string
-            Game.AddChatLine(Color.White, "", "Mission started. Kill the enemy jeep!");
 
-            triggers = Trigger.LoadTriggers();
+            triggers = Trigger.LoadTriggers(w);
 
             FireTriggers();
 		}

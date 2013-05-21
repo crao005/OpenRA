@@ -71,13 +71,22 @@ Container@INGAME_ROOT:
 					Width:200
 					Height:80
 					Align:Center
+<<<<<<< HEAD
 				Button@GAMEEND_QUIT:
 					X:20
+=======
+				Button@GAMEEND_CONTINUE:
+					X:(PARENT_RIGHT - WIDTH)/2
+>>>>>>> 1ff2f02d781ff579152643a8987720cedf5675e0
 					Y:(PARENT_BOTTOM - HEIGHT - 10)
-					Width:150
+					Width:170
 					Height:25
 					Font:Bold
+<<<<<<< HEAD
 					Text:Quitwarblgrbl
+=======
+					Text:Return to Main Menu
+>>>>>>> 1ff2f02d781ff579152643a8987720cedf5675e0
 		SupportPowerBin@INGAME_POWERS_BIN:
 			X:0
 			Y:25

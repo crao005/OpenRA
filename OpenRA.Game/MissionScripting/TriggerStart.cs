@@ -5,15 +5,15 @@ using System.Text;
 
 namespace OpenRA.MissionScripting
 {
-    class TriggerTest : Trigger
+    public class TriggerStart : Trigger
     {
-        bool once = true;
+        private bool canFire = true;
         
-        protected bool ConditionMet()
+        override protected bool ConditionMet()
         {
-            if (once)
+            if (canFire)
             {
-                once = false;
+                canFire = false;
                 return true;
             }
 

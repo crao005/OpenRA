@@ -80,8 +80,17 @@ Notifications:
 
 Triggers:
 	Start:
-		Message: hello
-		Message: bye
-	OnTime: 1000
-		Message: hello
-		Message: bye
+		MissionInstructions:
+			Message: Kill the enemy jeep!
+		ASAP:
+			Message: ASAP!
+	OnTime: 
+		FourSeconds: 100
+			Message: I said now, Soldier!
+		LoseAfter10Seconds: 250
+			Lose: You were too slow!
+	Annihilation:
+		AlliesDead: Allies
+			Lose: You lost your jeep!
+		SovietsDead: Soviets
+			Win: You got 'em good!

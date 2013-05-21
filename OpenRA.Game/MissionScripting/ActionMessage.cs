@@ -8,10 +8,20 @@ namespace OpenRA.MissionScripting
 {
     public class ActionMessage:Action 
     {
-        public Color colour;                //This colour only affects playerName
-        public String playerName;
-        public String message;
+        private Color colour;
+        private String playerName;
+        private String message;
 
+        //Default. Used for only message displays.
+        public ActionMessage(String message)
+        {
+            this.colour = Color.White;
+            this.playerName = "";
+            this.message = message;
+        }
+
+        //Overloaded to accept all inputs. Used for perhaps dialogue messages.
+        //*21/05/2013* Deprecated. Input will never use this constructor.
         public ActionMessage(Color colour, String playerName, String message)
         {
             this.colour = colour;
@@ -21,7 +31,6 @@ namespace OpenRA.MissionScripting
         
         public void Execute()
         {
-            //Game.addChatLine(c,n,s) was used to display the message.
             Game.AddChatLine(colour, playerName, message);
         }
     }
