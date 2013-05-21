@@ -80,7 +80,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
 
 
-            if (true)
+            if (!FileFormats.Thirdparty.GammaCruxYamlHelper.isLastMap())
             {
                 //Win game pop up start
                 var postgameBG = gameRoot.Get("POSTGAME_BG");
@@ -120,35 +120,31 @@ namespace OpenRA.Mods.RA.Widgets.Logic
                                     (state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS!! \nYOU ARE VICTORIOUS!");
                 };
                 //Win game popup end
-                // Adds in a new end game victory panel to show the end of the entire campaign levels
+
             }
             else
             {
+                // Adds in a new end game victory panel to show the end of the entire campaign levels
+                var gameendBG = gameRoot.Get("GAMEEND_BG");
+                var gameendText = gameendBG.Get<LabelWidget>("TEXT");
+                var gameendContinue = gameendBG.Get<ButtonWidget>("GAMEEND_CONTINUE");
+
+                gameendBG.IsVisible = () =>
                 {
-                    var gameendBG = gameRoot.Get("GAMEEND_BG");
-                    var gameendText = gameendBG.Get<LabelWidget>("TEXT");
-                    gameendText.GetText = () =>
-                    {
-                        var gameState = world.LocalPlayer.WinState;
-                        return gameState == WinState.Won ? "" :
-                            (gameState == WinState.Won ? "CONGRATULATIONS!! \nYOU HAVE WON THE GAME!" : "");
-                    };
+                    return gameendContinue.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
+                };
 
-                    var gameendContinue = gameendBG.Get<ButtonWidget>("GAMEEND_CONTINUE");
+                gameendText.GetText = () =>
+                {
+                    return "CONGRATULATIONS! CAMPAIGN COMPLETE";
+                };
 
-                    gameendBG.IsVisible = () =>
-                    {
-                        return gameendContinue.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
-                    };
-
-                    gameendContinue.OnClick = () =>
-                    {
-                        gameendContinue.OnClick = () => LeaveGame(gameendContinue, world);
-
-                    };
-                }
-                //End
+                gameendContinue.OnClick = () =>
+                {
+                    LeaveGame(gameendContinue, world);
+                };
             }
+            //End
         }
 
         void LeaveGame(Widget pane, World world)
