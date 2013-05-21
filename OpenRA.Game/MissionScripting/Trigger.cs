@@ -126,32 +126,31 @@ namespace OpenRA.MissionScripting
                     }
                 }
 
-                /*
-                // win trigger
-                var WinChildren = triggerYamlNodes["Win"].NodesDict;
-                foreach (var item in WinChildren)
+                // Annihilation trigger
+                var AnnihilationChildren = triggerYamlNodes["Annihilation"].NodesDict;
+                foreach (var item in AnnihilationChildren)
                 {
+                    Player team = world.Players.Single(p => p.InternalName == item.Value.Value); // Get the team from the yaml 
+                    Trigger trigger = new TriggerAnnihilation(world, team);
                     var child = item.Value.NodesDict;
                     if (child.ContainsKey("Message"))
                     {
-                        Trigger trigger = new TriggerStart();// warning here should be Trigger Win for win action
                         Action message = new ActionMessage(child["Message"].Value);
                         triggerList.Add(trigger.AddAction(message));
                     }
-                }
-                // lose trigger
-                var LoseChildren = triggerYamlNodes["Lose"].NodesDict;
-                foreach (var item in LoseChildren)
-                {
-                    var child = item.Value.NodesDict;
-                    if (child.ContainsKey("Message"))
+                    if (child.ContainsKey("Win"))
                     {
-                        Trigger trigger = new TriggerStart();// warning here should be Trigger Lose for lose action
-                        Action message = new ActionMessage(child["Message"].Value);
-                        triggerList.Add(trigger.AddAction(message));
+                        Action win = new ActionWin(world, child["Win"].Value);
+                        triggerList.Add(trigger.AddAction(win));
+                    }
+                    if (child.ContainsKey("Lose"))
+                    {
+                        Action lose = new ActionLose(world, child["Lose"].Value);
+                        triggerList.Add(trigger.AddAction(lose));
                     }
                 }
-                */
+
+                
             }
             return triggerList;
         }

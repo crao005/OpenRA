@@ -89,3 +89,8 @@ Triggers:
 			Message: I said now, Soldier!
 		LoseAfter10Seconds: 250
 			Lose: You were too slow!
+	Annihilation:
+		AlliesDead: Allies
+			Lose: You lost your jeep!
+		SovietsDead: Soviets
+			Win: You got 'em good!

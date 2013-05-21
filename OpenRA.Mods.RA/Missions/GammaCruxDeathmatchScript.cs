@@ -65,19 +65,6 @@ namespace OpenRA.Mods.RA.Missions
 		{
 			if (allies.WinState != WinState.Undefined) return;
 
-			if (objectives[KillJeepID].Status == ObjectiveStatus.InProgress)
-			{
-                if (sovietsjeep != null && sovietsjeep.Destroyed)
-                {
-                    objectives[KillJeepID].Status = ObjectiveStatus.Completed;
-                    OnObjectivesUpdated(true);
-                    MissionAccomplished("You killed the enemy jeep!");
-                }
-			}
-
-			if (alliesjeep != null && alliesjeep.Destroyed)
-				MissionFailed("Your jeep was destroyed.");
-
             FireTriggers();
 		}
 
