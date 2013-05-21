@@ -21,6 +21,7 @@ namespace OpenRA.MissionScripting
         }
 
         //Overloaded to accept all inputs. Used for perhaps dialogue messages.
+        //*21/05/2013* Deprecated. Input will never use this constructor.
         public ActionMessage(Color colour, String playerName, String message)
         {
             this.colour = colour;
