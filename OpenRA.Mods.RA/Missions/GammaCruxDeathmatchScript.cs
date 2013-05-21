@@ -40,26 +40,11 @@ namespace OpenRA.Mods.RA.Missions
 		const string KillJeep = "Kill the enemy jeep!";
 
 		Player allies;
-		Player soviets;
-
-        Actor alliesjeep;
-        Actor sovietsjeep;
 		
 		World world;
 
         // Scripting fields
         private List<Trigger> triggers;
-
-
-		void MissionAccomplished(string text)
-		{
-			MissionUtils.CoopMissionAccomplished(world, text, allies);
-		}
-
-		void MissionFailed(string text)
-		{
-			MissionUtils.CoopMissionFailed(world, text, allies);
-		}
 
 		public void Tick(Actor self)
 		{
@@ -73,14 +58,9 @@ namespace OpenRA.Mods.RA.Missions
 			world = w;
 
 			allies = w.Players.Single(p => p.InternalName == "Allies");
-			soviets = w.Players.Single(p => p.InternalName == "Soviets");
-
+			
 			allies.PlayerActor.Trait<PlayerResources>().Cash = 0;
 
-			var actors = w.WorldActor.Trait<SpawnMapActors>().Actors;
-			alliesjeep = actors["AlliesJeep"];
-            sovietsjeep = actors["SovietsJeep"];
-			
 			MissionUtils.PlayMissionMusic();
 
             triggers = Trigger.LoadTriggers(w);

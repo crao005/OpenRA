@@ -22,6 +22,12 @@ namespace OpenRA.MissionScripting
 
         override protected bool ConditionMet()
         {
+            // If this team is out of the game then ignore this trigger.
+            if (team.WinState != WinState.Undefined)
+            {
+                canFire = false;
+            }
+
             if (canFire)
             {
                 while (!annihilated)
