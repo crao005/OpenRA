@@ -23,124 +23,133 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
         [ObjectCreator.UseCtor]
         public IngameChromeLogic(World world)
-		{
-			var r = Ui.Root;
-			gameRoot = r.Get("INGAME_ROOT");
-			var optionsBG = gameRoot.Get("INGAME_OPTIONS_BG");
+        {
+            var r = Ui.Root;
+            gameRoot = r.Get("INGAME_ROOT");
+            var optionsBG = gameRoot.Get("INGAME_OPTIONS_BG");
 
-			r.Get<ButtonWidget>("INGAME_OPTIONS_BUTTON").OnClick = () =>
-			{
-				optionsBG.Visible = !optionsBG.Visible;
-				if (world.LobbyInfo.IsSinglePlayer)
-					world.IssueOrder(Order.PauseGame());
-			};
-			
-			var cheatsButton = gameRoot.Get<ButtonWidget>("CHEATS_BUTTON");
-			cheatsButton.OnClick = () =>
-			{
-				Game.OpenWindow("CHEATS_PANEL", new WidgetArgs() {{"onExit", () => {} }});
-			};
-			cheatsButton.IsVisible = () => world.LocalPlayer != null && world.LobbyInfo.GlobalSettings.AllowCheats;
-
-			var iop = world.WorldActor.TraitsImplementing<IObjectivesPanel>().FirstOrDefault();
-			if (iop != null && iop.ObjectivesPanel != null)
-			{
-				var objectivesButton = gameRoot.Get<ButtonWidget>("OBJECTIVES_BUTTON");
-				var objectivesWidget = Game.LoadWidget(world, iop.ObjectivesPanel, Ui.Root, new WidgetArgs());
-				objectivesWidget.Visible = false;
-				objectivesButton.OnClick += () => objectivesWidget.Visible = !objectivesWidget.Visible;
-				objectivesButton.IsVisible = () => world.LocalPlayer != null;
-			}
-
-			var moneybin = gameRoot.Get("INGAME_MONEY_BIN");
-			moneybin.Get<OrderButtonWidget>("SELL").GetKey = _ => Game.Settings.Keys.SellKey;
-			moneybin.Get<OrderButtonWidget>("POWER_DOWN").GetKey = _ => Game.Settings.Keys.PowerDownKey;
-			moneybin.Get<OrderButtonWidget>("REPAIR").GetKey = _ => Game.Settings.Keys.RepairKey;
-
-			var chatPanel = Game.LoadWidget(world, "CHAT_PANEL", Ui.Root, new WidgetArgs());
-			gameRoot.AddChild(chatPanel);
-
-			optionsBG.Get<ButtonWidget>("DISCONNECT").OnClick = () => LeaveGame(optionsBG, world);
-			optionsBG.Get<ButtonWidget>("SETTINGS").OnClick = () => Ui.OpenWindow("SETTINGS_MENU");
-			optionsBG.Get<ButtonWidget>("MUSIC").OnClick = () => Ui.OpenWindow("MUSIC_MENU");
-			optionsBG.Get<ButtonWidget>("RESUME").OnClick = () =>
-			{
-				optionsBG.Visible = false;
-				if (world.LobbyInfo.IsSinglePlayer)
-					world.IssueOrder(Order.PauseGame());
-			};
-
-			optionsBG.Get<ButtonWidget>("SURRENDER").OnClick = () =>
-			{
-				optionsBG.Visible = false;
-				world.IssueOrder(new Order("Surrender", world.LocalPlayer.PlayerActor, false));
-			};
-
-			optionsBG.Get("SURRENDER").IsVisible = () => (world.LocalPlayer != null && world.LocalPlayer.WinState == WinState.Undefined);
-
-			var postgameBG = gameRoot.Get("POSTGAME_BG");
-			var postgameText = postgameBG.Get<LabelWidget>("TEXT");
-			var postGameObserve = postgameBG.Get<ButtonWidget>("POSTGAME_OBSERVE");
-
-			var postgameQuit = postgameBG.Get<ButtonWidget>("POSTGAME_QUIT");
-            postgameQuit.OnClick = () => LeaveGame(postgameQuit, world);
-
-            
-            var postgameContinue = postgameBG.Get<ButtonWidget>("POSTGAME_CONTINUE");
-            if(!Game.Settings.Campaign.SinglePlayer) postgameContinue.Visible = false;
-            postgameContinue.GetText = () =>
+            r.Get<ButtonWidget>("INGAME_OPTIONS_BUTTON").OnClick = () =>
             {
-                var state = world.LocalPlayer.WinState;
-                return state == WinState.Undefined ? "" :
-                                (state == WinState.Lost ? "Retry" : "Continue");
+                optionsBG.Visible = !optionsBG.Visible;
+                if (world.LobbyInfo.IsSinglePlayer)
+                    world.IssueOrder(Order.PauseGame());
             };
-            postgameContinue.OnClick = () =>
-                {
-                    LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());
-                };
-            
-			postGameObserve.OnClick = () => postgameQuit.Visible = false;
-			postGameObserve.IsVisible = () => world.LocalPlayer.WinState != WinState.Won;
-                                
-			postgameBG.IsVisible = () =>
-			{
-				return postgameQuit.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
-			};
 
-
-			postgameText.GetText = () =>
-			{
-				var state = world.LocalPlayer.WinState;
-				return state == WinState.Undefined ? "" :
-								(state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS!! \nYOU ARE VICTORIOUS!");
-			};
-
-            // Adds in a new end game victory panel to show the end of the entire campaign levels
-            if (OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap()=="No Map Found")
+            var cheatsButton = gameRoot.Get<ButtonWidget>("CHEATS_BUTTON");
+            cheatsButton.OnClick = () =>
             {
-                var gameendBG = gameRoot.Get("GAMEEND_BG"); 
-                var gameendText = gameendBG.Get<LabelWidget>("TEXT");
-                gameendText.GetText = () =>
-                {
-                    var gameState = world.LocalPlayer.WinState;
-                    return gameState == WinState.Won ? "" :
-                        (gameState == WinState.Won ? "" : "CONGRATULATIONS!! \nYOU HAVE WON THE GAME!");
-                };
-                /**
-                 * gameendBG.IsVisible = () =>
-			{
-				return postgameQuit.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
-			};
-                
-                var gameendContinue = postgameBG.Get<ButtonWidget>("GAMEEND_CONTINUE");
-                gameendContinue.OnClick = () =>
-                {
-                    gameendContinue.OnClick = () => LeaveGame(postgameQuit, world);
+                Game.OpenWindow("CHEATS_PANEL", new WidgetArgs() { { "onExit", () => { } } });
+            };
+            cheatsButton.IsVisible = () => world.LocalPlayer != null && world.LobbyInfo.GlobalSettings.AllowCheats;
 
-                };
-                 */
+            var iop = world.WorldActor.TraitsImplementing<IObjectivesPanel>().FirstOrDefault();
+            if (iop != null && iop.ObjectivesPanel != null)
+            {
+                var objectivesButton = gameRoot.Get<ButtonWidget>("OBJECTIVES_BUTTON");
+                var objectivesWidget = Game.LoadWidget(world, iop.ObjectivesPanel, Ui.Root, new WidgetArgs());
+                objectivesWidget.Visible = false;
+                objectivesButton.OnClick += () => objectivesWidget.Visible = !objectivesWidget.Visible;
+                objectivesButton.IsVisible = () => world.LocalPlayer != null;
             }
-		}
+
+            var moneybin = gameRoot.Get("INGAME_MONEY_BIN");
+            moneybin.Get<OrderButtonWidget>("SELL").GetKey = _ => Game.Settings.Keys.SellKey;
+            moneybin.Get<OrderButtonWidget>("POWER_DOWN").GetKey = _ => Game.Settings.Keys.PowerDownKey;
+            moneybin.Get<OrderButtonWidget>("REPAIR").GetKey = _ => Game.Settings.Keys.RepairKey;
+
+            var chatPanel = Game.LoadWidget(world, "CHAT_PANEL", Ui.Root, new WidgetArgs());
+            gameRoot.AddChild(chatPanel);
+
+            optionsBG.Get<ButtonWidget>("DISCONNECT").OnClick = () => LeaveGame(optionsBG, world);
+            optionsBG.Get<ButtonWidget>("SETTINGS").OnClick = () => Ui.OpenWindow("SETTINGS_MENU");
+            optionsBG.Get<ButtonWidget>("MUSIC").OnClick = () => Ui.OpenWindow("MUSIC_MENU");
+            optionsBG.Get<ButtonWidget>("RESUME").OnClick = () =>
+            {
+                optionsBG.Visible = false;
+                if (world.LobbyInfo.IsSinglePlayer)
+                    world.IssueOrder(Order.PauseGame());
+            };
+
+            optionsBG.Get<ButtonWidget>("SURRENDER").OnClick = () =>
+            {
+                optionsBG.Visible = false;
+                world.IssueOrder(new Order("Surrender", world.LocalPlayer.PlayerActor, false));
+            };
+
+            optionsBG.Get("SURRENDER").IsVisible = () => (world.LocalPlayer != null && world.LocalPlayer.WinState == WinState.Undefined);
+
+
+
+            if (true)
+            {
+                //Win game pop up start
+                var postgameBG = gameRoot.Get("POSTGAME_BG");
+                var postgameText = postgameBG.Get<LabelWidget>("TEXT");
+                var postGameObserve = postgameBG.Get<ButtonWidget>("POSTGAME_OBSERVE");
+
+                var postgameQuit = postgameBG.Get<ButtonWidget>("POSTGAME_QUIT");
+                postgameQuit.OnClick = () => LeaveGame(postgameQuit, world);
+
+
+                var postgameContinue = postgameBG.Get<ButtonWidget>("POSTGAME_CONTINUE");
+                if (!Game.Settings.Campaign.SinglePlayer) postgameContinue.Visible = false;
+                postgameContinue.GetText = () =>
+                {
+                    var state = world.LocalPlayer.WinState;
+                    return state == WinState.Undefined ? "" :
+                                    (state == WinState.Lost ? "Retry" : "Continue");
+                };
+                postgameContinue.OnClick = () =>
+                    {
+                        LoadNextLevel(postgameContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());
+                    };
+
+                postGameObserve.OnClick = () => postgameQuit.Visible = false;
+                postGameObserve.IsVisible = () => world.LocalPlayer.WinState != WinState.Won;
+
+                postgameBG.IsVisible = () =>
+                {
+                    return postgameQuit.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
+                };
+
+
+                postgameText.GetText = () =>
+                {
+                    var state = world.LocalPlayer.WinState;
+                    return state == WinState.Undefined ? "" :
+                                    (state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS!! \nYOU ARE VICTORIOUS!");
+                };
+                //Win game popup end
+                // Adds in a new end game victory panel to show the end of the entire campaign levels
+            }
+            else
+            {
+                {
+                    var gameendBG = gameRoot.Get("GAMEEND_BG");
+                    var gameendText = gameendBG.Get<LabelWidget>("TEXT");
+                    gameendText.GetText = () =>
+                    {
+                        var gameState = world.LocalPlayer.WinState;
+                        return gameState == WinState.Won ? "" :
+                            (gameState == WinState.Won ? "CONGRATULATIONS!! \nYOU HAVE WON THE GAME!" : "");
+                    };
+
+                    var gameendContinue = gameendBG.Get<ButtonWidget>("GAMEEND_CONTINUE");
+
+                    gameendBG.IsVisible = () =>
+                    {
+                        return gameendContinue.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
+                    };
+
+                    gameendContinue.OnClick = () =>
+                    {
+                        gameendContinue.OnClick = () => LeaveGame(gameendContinue, world);
+
+                    };
+                }
+                //End
+            }
+        }
 
         void LeaveGame(Widget pane, World world)
         {
