@@ -68,6 +68,31 @@ namespace OpenRA.FileFormats.Thirdparty
             return GetHash(@"mods\ra\maps\" + campaign[num - 1]);
         }
 
+        public static bool isLastMap()
+        {
+            String[] campaign;
+            int num = 1;
+
+            var yaml = MiniYaml.DictFromFile("mods/ra/campaigns/Allies.yaml");
+            campaign = YamlList(yaml, "Campaign");
+
+            var setting = MiniYaml.DictFromFile(Platform.SupportDir + "settings.yaml");
+
+            if (setting.ContainsKey("Campaign"))
+            {
+                var settingCampaign = setting["Campaign"].NodesDict;
+                if (settingCampaign.ContainsKey("NextMission"))
+                {
+                    num = Convert.ToInt32(settingCampaign["NextMission"].Value);
+                }
+            }
+
+           
+            if (num >= campaign.Length) return true;
+
+            return false;
+        }
+
         static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
         {
             if (!yaml.ContainsKey(key))
