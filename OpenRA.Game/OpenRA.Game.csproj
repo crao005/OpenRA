@@ -83,6 +83,7 @@
     <Compile Include="Graphics\QuadRenderer.cs" />
     <Compile Include="MissionScripting\ActionLose.cs" />
     <Compile Include="MissionScripting\ActionWin.cs" />
+    <Compile Include="MissionScripting\ActionSpawnUnit.cs" />
     <Compile Include="MissionScripting\TriggerAnnihilation.cs" />
     <Compile Include="MissionScripting\TriggerOnTime.cs" />
     <Compile Include="MissionScripting\TriggerStart.cs" />

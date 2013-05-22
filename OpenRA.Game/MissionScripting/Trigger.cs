@@ -100,6 +100,12 @@ namespace OpenRA.MissionScripting
                         Action lose = new ActionLose(world, child["Lose"].Value);
                         triggerList.Add(trigger.AddAction(lose));
                     }
+                    if (child.ContainsKey("SpawnUnit"))
+                    {
+                        Action spawn = new ActionSpawnUnit(world, child["SpawnUnit"].Value);
+                        triggerList.Add(trigger.AddAction(spawn));
+                    }
+                    
                 }
 
                 // ontime trigger
@@ -124,6 +130,11 @@ namespace OpenRA.MissionScripting
                         Action lose = new ActionLose(world, child["Lose"].Value);
                         triggerList.Add(trigger.AddAction(lose));
                     }
+                    if (child.ContainsKey("SpawnUnit"))
+                    {
+                        Action spawn = new ActionSpawnUnit(world, child["SpawnUnit"].Value);
+                        triggerList.Add(trigger.AddAction(spawn));
+                    }
                 }
 
                 // Annihilation trigger
@@ -147,6 +158,11 @@ namespace OpenRA.MissionScripting
                     {
                         Action lose = new ActionLose(world, child["Lose"].Value);
                         triggerList.Add(trigger.AddAction(lose));
+                    }
+                    if (child.ContainsKey("SpawnUnit"))
+                    {
+                        Action spawn = new ActionSpawnUnit(world, child["SpawnUnit"].Value);
+                        triggerList.Add(trigger.AddAction(spawn));
                     }
                 }
 

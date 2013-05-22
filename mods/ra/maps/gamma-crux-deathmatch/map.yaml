@@ -90,7 +90,7 @@ Triggers:
 		LoseAfter10Seconds: 250
 			Lose: You were too slow!
 	Annihilation:
-		AlliesDead: Allies
-			Lose: You lost your jeep!
+		AlliesNeedHelp: Allies
+			SpawnUnit: jeep,Allies,20,20
 		SovietsDead: Soviets
 			Win: You got 'em good!
