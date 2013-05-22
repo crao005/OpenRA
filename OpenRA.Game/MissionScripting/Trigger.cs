@@ -10,7 +10,7 @@ namespace OpenRA.MissionScripting
     {
         private List<Action> Actions { get; set; }
 
-        public Trigger()
+        protected Trigger()
         {
             Actions = new List<Action>();
         }
@@ -23,6 +23,17 @@ namespace OpenRA.MissionScripting
         public Trigger AddAction(Action action)
         {
             Actions.Add(action);
+            return this;
+        }
+
+
+        // Will add a list of actions to a trigger to allow multiple actions of different type under a heading
+        public Trigger AddAllActions(List<Action> actions)
+        {
+            foreach (var action in actions)
+            {
+                Actions.Add(action);
+            }
             return this;
         }
 
@@ -63,113 +74,93 @@ namespace OpenRA.MissionScripting
         /// </summary>
         /// <returns>An array of Trigger instances.</returns>
         public static List<Trigger> LoadTriggers(World world)
-        {
-            //create trigger objects based on map.yaml file and return them in an array. 
 
-            List<Trigger> triggerList = new List<Trigger>();
+        { 
+            // Create list of all triggers which will be associated with a game
+            var triggerList = new List<Trigger>();
 
+
+            // Load the custom map file
             var map = MiniYaml.DictFromFile("mods/ra/maps/gamma-crux-deathmatch/map.yaml");
              
             if (map.ContainsKey("Triggers"))
             {
-                
-                var triggerYamlNodes = map["Triggers"].NodesDict;
-                string[] Start = YamlList(triggerYamlNodes, "Start");
-                string[] OnTime = YamlList(triggerYamlNodes, "OnTime");
 
-                // start trigger
-                var StartChildren = triggerYamlNodes["Start"].NodesDict;
-                foreach (var item in StartChildren)
+                // Get all trigger types (at the first level in the yaml file)
+                var triggerYamlNodes = map["Triggers"].NodesDict;
+
+
+                // Get all triggers of type start - will fire immediately
+                var startChildren = triggerYamlNodes["Start"].NodesDict;
+                foreach (var item in startChildren)
                 {
+                    // Get the actions under that trigger
                     var child = item.Value.NodesDict;
 
+                    // Create appropriate trigger for the found string in the yaml file
                     Trigger trigger = new TriggerStart();
 
-                    if (child.ContainsKey("Message"))
-                    {
-                        Action message = new ActionMessage(child["Message"].Value);
-                        triggerList.Add(trigger.AddAction(message));                       
-                    }
-                    if (child.ContainsKey("Win"))
-                    {
-                        Action win = new ActionWin(world, child["Win"].Value);
-                        triggerList.Add(trigger.AddAction(win));
-                    }
-                    if (child.ContainsKey("Lose"))
-                    {
-                        Action lose = new ActionLose(world, child["Lose"].Value);
-                        triggerList.Add(trigger.AddAction(lose));
-                    }
-                    if (child.ContainsKey("SpawnUnit"))
-                    {
-                        Action spawn = new ActionSpawnUnit(world, child["SpawnUnit"].Value);
-                        triggerList.Add(trigger.AddAction(spawn));
-                    }
-                    
+                    // Iterate over the actions, assign them to Action objects
+                    // Link them to their parent trigger and assign that trigger to the global list
+                    triggerList.Add(trigger.AddAllActions(GetActions(child, world)));                     
                 }
 
-                // ontime trigger
-                var OnTimeChildren = triggerYamlNodes["OnTime"].NodesDict;
-                foreach (var item in OnTimeChildren)
+                // ontime trigger - fires at certain time
+                var onTimeChildren = triggerYamlNodes["OnTime"].NodesDict;
+                foreach (var item in onTimeChildren)
                 {
+                    var child = item.Value.NodesDict;
+
+                    // OnTime triggers must have a time variable so that they know the time to fire at
                     int time = Convert.ToInt32(item.Value.Value);
                     Trigger trigger = new TriggerOnTime(time);
-                    var child = item.Value.NodesDict;
-                    if (child.ContainsKey("Message"))
-                    {
-                        Action message = new ActionMessage(child["Message"].Value);
-                        triggerList.Add(trigger.AddAction(message));
-                    }
-                    if (child.ContainsKey("Win"))
-                    {
-                        Action win = new ActionWin(world, child["Win"].Value);
-                        triggerList.Add(trigger.AddAction(win));
-                    }
-                    if (child.ContainsKey("Lose"))
-                    {
-                        Action lose = new ActionLose(world, child["Lose"].Value);
-                        triggerList.Add(trigger.AddAction(lose));
-                    }
-                    if (child.ContainsKey("SpawnUnit"))
-                    {
-                        Action spawn = new ActionSpawnUnit(world, child["SpawnUnit"].Value);
-                        triggerList.Add(trigger.AddAction(spawn));
-                    }
+                    
+                    triggerList.Add(trigger.AddAllActions(GetActions(child, world)));                    
                 }
 
-                // Annihilation trigger
-                var AnnihilationChildren = triggerYamlNodes["Annihilation"].NodesDict;
-                foreach (var item in AnnihilationChildren)
+                // Annihilation trigger - will fire when the given team has no buildings or units remaining
+                var annihilationChildren = triggerYamlNodes["Annihilation"].NodesDict;
+                foreach (var item in annihilationChildren)
                 {
+                    var child = item.Value.NodesDict;
+
+                    // Get the team specified in yaml 
                     Player team = world.Players.Single(p => p.InternalName == item.Value.Value); // Get the team from the yaml 
                     Trigger trigger = new TriggerAnnihilation(world, team);
-                    var child = item.Value.NodesDict;
-                    if (child.ContainsKey("Message"))
-                    {
-                        Action message = new ActionMessage(child["Message"].Value);
-                        triggerList.Add(trigger.AddAction(message));
-                    }
-                    if (child.ContainsKey("Win"))
-                    {
-                        Action win = new ActionWin(world, child["Win"].Value);
-                        triggerList.Add(trigger.AddAction(win));
-                    }
-                    if (child.ContainsKey("Lose"))
-                    {
-                        Action lose = new ActionLose(world, child["Lose"].Value);
-                        triggerList.Add(trigger.AddAction(lose));
-                    }
-                    if (child.ContainsKey("SpawnUnit"))
-                    {
-                        Action spawn = new ActionSpawnUnit(world, child["SpawnUnit"].Value);
-                        triggerList.Add(trigger.AddAction(spawn));
-                    }
-                }
-
-                
+                    
+                    triggerList.Add(trigger.AddAllActions(GetActions(child, world)));
+                }  
             }
             return triggerList;
         }
+
+        // Each trigger may have any one of these actions beneath it. 
+        // This function will check the yaml string and return the correct object inside a list
+        // The desired behaviour is one action per named trigger but this will allow for multiple,
+        //  provided they are of different types (ie their names are unique at that level)
+        private static List<Action> GetActions(Dictionary<string, MiniYaml> child, World world)
+        {
+            var actions = new List<Action>();
+            if (child.ContainsKey("Message"))
+            {
+                actions.Add(new ActionMessage(child["Message"].Value));
+            }
+            if (child.ContainsKey("Win"))
+            {
+                actions.Add(new ActionWin(world, child["Win"].Value));
+            }
+            if (child.ContainsKey("Lose"))
+            {
+                actions.Add(new ActionLose(world, child["Lose"].Value));
+            }
+			if (child.ContainsKey("SpawnUnit"))
+            {
+                actions.Add(new ActionSpawnUnit(world, child["SpawnUnit"].Value));
+            }
+            return actions;
+        }
+
+
         
         /// <summary>t
         /// This static method is used for LoadTriggers to Transform Yaml Dictionary format to string array 
