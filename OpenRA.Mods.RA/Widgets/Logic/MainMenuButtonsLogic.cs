@@ -22,13 +22,13 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 		public MainMenuButtonsLogic(Widget widget)
 		{
 			rootMenu = widget;
-
+           
             Game.Settings.Campaign.SinglePlayer = false;
             Game.Settings.Save();
             
 			Game.modData.WidgetLoader.LoadWidget( new WidgetArgs(), Ui.Root, "PERF_BG" );
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_SINGLEPLAYER").OnClick = () => NewCampaign();
-            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());
+            widget.Get<ButtonWidget>("MAINMENU_BUTTON_CONTINUE").OnClick = () => ContinueCampaign();
             widget.Get<ButtonWidget>("MAINMENU_BUTTON_JOIN").OnClick = () => OpenGamePanel("JOINSERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_CREATE").OnClick = () => OpenGamePanel("CREATESERVER_BG");
 			widget.Get<ButtonWidget>("MAINMENU_BUTTON_DIRECTCONNECT").OnClick = () => OpenGamePanel("DIRECTCONNECT_BG");
@@ -86,6 +86,11 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
             // Upon single player selection on main menu, the first Allies 01 map code is accessed
             OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getMap(1));
+        }
+
+        void ContinueCampaign()
+        {
+            OpenSinglePlayerPanel(OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());
         }
 
         void OpenSinglePlayerPanel(string mapId)

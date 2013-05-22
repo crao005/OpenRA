@@ -62,8 +62,8 @@ namespace OpenRA.FileFormats.Thirdparty
                     num = Convert.ToInt32(settingCampaign["NextMission"].Value);
                 }
             }
-            
-            if (num > campaign.Length) return "No Map Found";
+
+            if (num > campaign.Length) return GetHash(@"mods\ra\maps\" + campaign[campaign.Length - 1]);
 
             return GetHash(@"mods\ra\maps\" + campaign[num - 1]);
         }
