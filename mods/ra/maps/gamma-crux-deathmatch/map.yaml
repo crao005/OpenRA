@@ -87,10 +87,13 @@ Triggers:
 	OnTime: 
 		FourSeconds: 100
 			Message: I said now, Soldier!
-		LoseAfter10Seconds: 250
-			Lose: You were too slow!
+		Fifteenseconds: 375
+			Lose: Too slow!
 	Annihilation:
 		AlliesNeedHelp: Allies
 			SpawnUnit: jeep,Allies,20,20
 		SovietsDead: Soviets
 			Win: You got 'em good!
+	UnitInArea:
+		AlliesHaveJeepOverThere: Allies,16,16,400,2000
+			Lose: You can not escape.

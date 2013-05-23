@@ -129,7 +129,18 @@ namespace OpenRA.MissionScripting
                     Trigger trigger = new TriggerAnnihilation(world, team);
                     
                     triggerList.Add(trigger.AddAllActions(GetActions(child, world)));
-                }  
+                }
+
+                // Unit In Area trigger - will fire when a given team has a unit in a given box area
+                var unitInAreaChildren = triggerYamlNodes["UnitInArea"].NodesDict;
+                foreach (var item in unitInAreaChildren)
+                {
+                    var child = item.Value.NodesDict;
+
+                    Trigger trigger = new TriggerUnitInArea(world, item.Value.Value);
+
+                    triggerList.Add(trigger.AddAllActions(GetActions(child, world)));
+                }
             }
             return triggerList;
         }
