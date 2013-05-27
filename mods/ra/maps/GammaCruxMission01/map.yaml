@@ -1,0 +1,221 @@
+Selectable: False
+
+MapFormat: 5
+
+Title: Name your map here
+
+Description: Describe your map here
+
+Author: Your name here
+
+Tileset: SNOW
+
+MapSize: 32,32
+
+Bounds: 2,2,28,28
+
+UseAsShellmap: False
+
+Type: Conquest
+
+Players:
+	PlayerReference@Allies:
+		Name: Allies
+		Playable: True
+		AllowBots: False
+		Race: allies
+		LockRace: True
+		LockColour: True
+		ColorRamp: 161,134,200,30
+		LockSpawn: True
+		LockTeam: True
+		Enemies: Soviets
+	PlayerReference@Soviets:
+		Name: Soviets
+		Race: soviet
+		ColorRamp: 3,255,127,28
+		Enemies: Allies, Creeps
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Race: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Race: allies
+
+Actors:
+	AlliesHarv: HARV
+		Location: 10,27
+		Owner: Allies 
+	Actor0: tc04
+		Location: 25,8
+		Owner: Neutral
+	Actor1: powr
+		Location: 14,6
+		Owner: Soviets
+	Actor2: v13
+		Location: 4,26
+		Owner: Neutral
+	Actor3: weap
+		Location: 26,21
+		Owner: Neutral
+	Actor4: t05
+		Location: 27,19
+		Owner: Neutral
+	Actor5: t05
+		Location: 26,20
+		Owner: Neutral
+	Actor6: t05
+		Location: 29,21
+		Owner: Neutral
+	Actor7: t05
+		Location: 4,24
+		Owner: Neutral
+	Actor9: t02
+		Location: 24,10
+		Owner: Neutral
+	Actor8: t02
+		Location: 25,10
+		Owner: Neutral
+	Actor10: t14
+		Location: 13,22
+		Owner: Neutral
+	Actor11: v04
+		Location: 14,22
+		Owner: Neutral
+	Actor12: t02
+		Location: 24,9
+		Owner: Neutral
+	Actor13: t02
+		Location: 23,9
+		Owner: Neutral
+	Actor14: t02
+		Location: 23,8
+		Owner: Neutral
+	Actor15: t02
+		Location: 23,7
+		Owner: Neutral
+	Actor16: t02
+		Location: 24,6
+		Owner: Neutral
+	Actor17: t02
+		Location: 24,5
+		Owner: Neutral
+	Actor18: t02
+		Location: 25,5
+		Owner: Neutral
+	Actor19: t02
+		Location: 26,5
+		Owner: Neutral
+	Actor20: t02
+		Location: 26,6
+		Owner: Neutral
+	Actor21: t02
+		Location: 27,6
+		Owner: Neutral
+	Actor22: t02
+		Location: 7,13
+		Owner: Neutral
+	Actor23: t02
+		Location: 8,13
+		Owner: Neutral
+	Actor24: t02
+		Location: 8,12
+		Owner: Neutral
+	Actor25: t02
+		Location: 8,11
+		Owner: Neutral
+	Actor26: t02
+		Location: 8,10
+		Owner: Neutral
+	Actor27: t02
+		Location: 8,9
+		Owner: Neutral
+	Actor28: t02
+		Location: 7,9
+		Owner: Neutral
+	Actor29: t02
+		Location: 7,8
+		Owner: Neutral
+	Actor30: t02
+		Location: 6,8
+		Owner: Neutral
+	Actor31: t02
+		Location: 5,8
+		Owner: Neutral
+	Actor32: t02
+		Location: 5,9
+		Owner: Neutral
+	Actor33: t02
+		Location: 4,9
+		Owner: Neutral
+	Actor34: t02
+		Location: 4,10
+		Owner: Neutral
+	Actor35: t02
+		Location: 4,11
+		Owner: Neutral
+	Actor36: t02
+		Location: 4,12
+		Owner: Neutral
+	Actor37: mpspawn
+		Location: 10,27
+		Owner: Allies
+	Actor38: mpspawn
+		Location: 15,9
+		Owner: Neutral
+	Actor39: tc05
+		Location: 5,11
+		Owner: Neutral
+	Actor40: tc05
+		Location: 3,14
+		Owner: Neutral
+	Actor41: tc05
+		Location: 26,10
+		Owner: Neutral
+	Actor42: tc05
+		Location: 27,4
+		Owner: Neutral
+
+Smudges:
+
+Rules:
+	POWR:
+		Health:
+			HP: 5
+	Player:
+		-ConquestVictoryConditions:
+	World:
+		-CrateDrop:
+		-SpawnMPUnits:
+		-MPStartLocations:
+		GammaCruxMission01:
+		MissionObjectivesPanel:
+			ObjectivesPanel: MISSION_OBJECTIVES
+
+Sequences:
+
+Weapons:
+
+Voices:
+
+Notifications:
+
+Triggers:
+	Start:
+		Preamble:
+			Message: I should go to the factory and get something more appropriate.
+	OnTime:
+		AfterOneSecond: 100
+			Message: I remember there being one to the east. That should be acceptable.
+	UnitInArea:
+		FordInPosition: Allies,520,320,800,700
+			SpawnUnit: opj,Allies,24,20
+			Message: Alright time to head to the enemy building. I should be able to follow this path.
+	Annihilation:
+		FordWins: Soviets
+			Win: Done but I saw the manager escape.
+	RepeatOnTime:
+
