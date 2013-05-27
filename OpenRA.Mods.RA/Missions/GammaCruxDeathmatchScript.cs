@@ -56,7 +56,6 @@ namespace OpenRA.Mods.RA.Missions
 		public void WorldLoaded(World w)
 		{
 			world = w;
-            String yamlFile="mods/ra/maps/gamma-crux-deathmatch/map.yaml";
 
 			allies = w.Players.Single(p => p.InternalName == "Allies");
 			
@@ -64,7 +63,7 @@ namespace OpenRA.Mods.RA.Missions
 
 			MissionUtils.PlayMissionMusic();
 
-            triggers = Trigger.LoadTriggers(w, yamlFile);
+            triggers = Trigger.LoadTriggers(w);
 
             FireTriggers();
 		}
