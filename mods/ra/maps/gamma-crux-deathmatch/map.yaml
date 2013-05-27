@@ -81,17 +81,15 @@ Notifications:
 Triggers:
 	Start:
 		MissionInstructions:
-			Message: Kill the enemy jeep!
+			Message: Theres the manager!
 		ASAP:
-			Message: ASAP!
+			Message: DESTROY HIM!
 	OnTime:
 		FourSeconds: 100
-			Message: I said now, Soldier!
+			Message: HURRY UP AND END HIIIM BEFORE HE GETS AWAY!
 		Fifteenseconds: 375
-			Lose: Too slow!
+			Lose: NOOOOOOOOOOOOOOOOOOOOO HE GOT AWAY!
 	RepeatOnTime:
-		Every5Seconds: 125
-			Message: 5 seconds passed.
 	Annihilation:
 		AlliesNeedHelp: Allies
 			SpawnUnit: jeep,Allies,20,20
