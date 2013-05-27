@@ -86,13 +86,13 @@ Triggers:
 			Message: DESTROY HIM!
 	OnTime:
 		FourSeconds: 100
-			Message: HURRY UP AND END HIIIM BEFORE HE GETS AWAY!
-		Fifteenseconds: 375
+			Message: HURRY UP AND END HIM BEFORE HE GETS AWAY!
+		Fifteenseconds: 250
 			Lose: NOOOOOOOOOOOOOOOOOOOOO HE GOT AWAY!
 	RepeatOnTime:
 	Annihilation:
 		AlliesNeedHelp: Allies
-			SpawnUnit: jeep,Allies,20,20
+			Lose: You lost?!
 		SovietsDead: Soviets
 			Win: You got 'em good!
 	UnitInArea:
