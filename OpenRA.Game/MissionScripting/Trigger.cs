@@ -181,6 +181,10 @@ namespace OpenRA.MissionScripting
             {
                 actions.Add(new ActionSpawnUnit(world, child["SpawnUnit"].Value));
             }
+            if (child.ContainsKey("Kill"))
+            {
+                actions.Add(new ActionKillUnit(world, child["Kill"].Value));
+            }
             return actions;
         }
 
