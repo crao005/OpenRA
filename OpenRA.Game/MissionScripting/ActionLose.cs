@@ -8,6 +8,9 @@ using OpenRA.Traits;
 
 namespace OpenRA.MissionScripting
 {
+    /// <summary>
+    /// This action will cause the player to lose, and post a message with the "Mission failed" text.
+    /// </summary>
     public class ActionLose:Action 
     {
         private World world;

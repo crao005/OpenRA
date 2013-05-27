@@ -6,7 +6,10 @@ using System.Drawing;
 
 namespace OpenRA.MissionScripting
 {
-    public class ActionMessage:Action 
+    /// <summary>
+    /// This action will post a message to the game chat log.
+    /// </summary>
+    public class ActionMessage:Action
     {
         private Color colour;
         private String playerName;

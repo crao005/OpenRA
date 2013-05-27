@@ -8,14 +8,23 @@ using OpenRA.FileFormats;
 
 namespace OpenRA.MissionScripting
 {
+    /// <summary>
+    /// This action will spawn a unit onto the map.
+    /// The unit is defined by: type, owner and x and y location.
+    /// </summary>
     public class ActionSpawnUnit:Action 
     {
         private World world;
         private string type;
         private Player owner;
         private CPos? location;
-        int? facing;
+        int? facing; // Used to specify the direction the unit is facing. Could be added as another input argument.
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="args">Specify the unit: [type] [owner] [x] [y]</param>
         public ActionSpawnUnit(World world, string args)
         {
             string[] argArray = args.Split(',');
@@ -28,11 +37,14 @@ namespace OpenRA.MissionScripting
 
         public void Execute()
         {
+            // Create a type dictionary to hold the unit owner.
             var td = new TypeDictionary { new OwnerInit(owner) };
+            // Error checking for the location and facing direction.
             if (location.HasValue)
                 td.Add(new LocationInit(location.Value));
             if (facing.HasValue)
                 td.Add(new FacingInit(facing.Value));
+            // Create the actor.
             world.CreateActor(true, type, td);
         }
     }
