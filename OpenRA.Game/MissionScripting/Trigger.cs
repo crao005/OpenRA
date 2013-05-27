@@ -72,16 +72,17 @@ namespace OpenRA.MissionScripting
         /// <summary>
         /// This method will load all of the triggers for a given map file, instantiate them, and return them in an array.
         /// </summary>
+        /// <param name="world"></param>
+        /// <param name="file"></param>
         /// <returns>An array of Trigger instances.</returns>
-        public static List<Trigger> LoadTriggers(World world)
-
+        public static List<Trigger> LoadTriggers(World world,String file)
         { 
             // Create list of all triggers which will be associated with a game
             var triggerList = new List<Trigger>();
 
 
             // Load the custom map file
-            var map = MiniYaml.DictFromFile("mods/ra/maps/gamma-crux-deathmatch/map.yaml");
+            var map = MiniYaml.DictFromFile(file);
              
             if (map.ContainsKey("Triggers"))
             {
