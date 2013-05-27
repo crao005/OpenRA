@@ -89,6 +89,9 @@ Triggers:
 			Message: I said now, Soldier!
 		Fifteenseconds: 375
 			Lose: Too slow!
+	RepeatOnTime:
+		Every5Seconds: 125
+			Message: 5 seconds passed.
 	Annihilation:
 		AlliesNeedHelp: Allies
 			SpawnUnit: jeep,Allies,20,20

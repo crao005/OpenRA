@@ -119,6 +119,19 @@ namespace OpenRA.MissionScripting
                     triggerList.Add(trigger.AddAllActions(GetActions(child, world)));                    
                 }
 
+                // ontime trigger - fires at certain time
+                var repeatOnTimeChildren = triggerYamlNodes["RepeatOnTime"].NodesDict;
+                foreach (var item in repeatOnTimeChildren)
+                {
+                    var child = item.Value.NodesDict;
+
+                    // OnTime triggers must have a time variable so that they know the time to fire at
+                    int time = Convert.ToInt32(item.Value.Value);
+                    Trigger trigger = new TriggerRepeatOnTime(time);
+
+                    triggerList.Add(trigger.AddAllActions(GetActions(child, world)));
+                }
+
                 // Annihilation trigger - will fire when the given team has no buildings or units remaining
                 var annihilationChildren = triggerYamlNodes["Annihilation"].NodesDict;
                 foreach (var item in annihilationChildren)
