@@ -84,9 +84,7 @@ Triggers:
 			Message: Kill the enemy jeep!
 		ASAP:
 			Message: ASAP!
-	OnTime: 
-		3Seconds: 75
-			Kill: AlliesJeep
+	OnTime:
 		FourSeconds: 100
 			Message: I said now, Soldier!
 		Fifteenseconds: 375

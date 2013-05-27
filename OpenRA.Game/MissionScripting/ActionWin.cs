@@ -7,6 +7,9 @@ using OpenRA;
 
 namespace OpenRA.MissionScripting
 {
+    /// <summary>
+    /// This action will cause the player to win, and display a given message along with the text "Mission Accomplished".
+    /// </summary>
     public class ActionWin:Action 
     {
         private World world;

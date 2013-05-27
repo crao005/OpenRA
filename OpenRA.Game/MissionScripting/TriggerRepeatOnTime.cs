@@ -5,13 +5,16 @@ using System.Text;
 
 namespace OpenRA.MissionScripting
 {
+    /// <summary>
+    /// This trigger will fire every n ticks where n is input.
+    /// </summary>
     public class TriggerRepeatOnTime : Trigger
     {
         private int time;
         private int counter;
 
         // 25 ticks per second.
-        // 1500 per minute
+        // 1500 ticks per minute.
 
         public TriggerRepeatOnTime(int time)
         {
@@ -25,6 +28,7 @@ namespace OpenRA.MissionScripting
 
             if (counter <= 0)
             {
+                // Reset the timer when it reaches 0.
                 counter = time;
                 return true;
             }

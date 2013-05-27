@@ -8,15 +8,27 @@ using OpenRA.Traits;
 
 namespace OpenRA.MissionScripting
 {
+    /// <summary>
+    /// This trigger will fire the first time a specified team has a unit in a specified box area.
+    /// </summary>
     public class TriggerUnitInArea : Trigger
     {
         private bool canFire = true;
 
         private World world;
         private Player player;
+
+        // a and b are the pixel positions defining the top left and bottom right corners of the box area.
         PPos a;
         PPos b;
 
+        /// <summary>
+        /// Create a unit in area trigger with the world object for the match and the information for
+        /// what team can fire the trigger, and the x and y coordinates of two points which define
+        /// the top left and bottom right corners of the box area the unit can be in.
+        /// </summary>
+        /// <param name="world">The world object for this match</param>
+        /// <param name="args">A string in the format: [teamname] [x1] [y1] [x2] [y2]</param>
         public TriggerUnitInArea(World world, String args)
             : base()
         {

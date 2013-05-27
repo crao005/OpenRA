@@ -5,13 +5,16 @@ using System.Text;
 
 namespace OpenRA.MissionScripting
 {
+    /// <summary>
+    /// This trigger will fire once at a specified time.
+    /// </summary>
     public class TriggerOnTime : Trigger
     {
         private bool canFire = true;
         private int counter;
 
         // 25 ticks per second.
-        // 1500 per minute
+        // 1500 ticks per minute.
 
         public TriggerOnTime(int time)
         {
@@ -20,6 +23,7 @@ namespace OpenRA.MissionScripting
 
         override protected bool ConditionMet()
         {
+            counter--;
 
             if (canFire && counter <= 0)
             {
@@ -27,8 +31,6 @@ namespace OpenRA.MissionScripting
                 return true;
             }
 
-            counter--;
-            
             return false;
         }
     }
