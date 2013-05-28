@@ -79,7 +79,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             optionsBG.Get("SURRENDER").IsVisible = () => (world.LocalPlayer != null && world.LocalPlayer.WinState == WinState.Undefined);
 
 
-            // Check if the next map isn't the last available and that the player hasn't lost a mission then load the new mission
+            // Check if the next map isn't the last available and that the player has lost a mission then load the new mission
             if (!FileFormats.Thirdparty.GammaCruxYamlHelper.isLastMap() || (world.LocalPlayer.WinState == WinState.Lost))
             {
                 //Win game pop up start
