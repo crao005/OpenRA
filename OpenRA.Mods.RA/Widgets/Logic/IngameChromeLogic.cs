@@ -79,8 +79,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
             optionsBG.Get("SURRENDER").IsVisible = () => (world.LocalPlayer != null && world.LocalPlayer.WinState == WinState.Undefined);
 
 
-
-            if (!FileFormats.Thirdparty.GammaCruxYamlHelper.isLastMap())
+            // Check if the next map isn't the last available and that the player hasn't lost a mission then load the new mission
+            if (!FileFormats.Thirdparty.GammaCruxYamlHelper.isLastMap() || (world.LocalPlayer.WinState == WinState.Lost))
             {
                 //Win game pop up start
                 var postgameBG = gameRoot.Get("POSTGAME_BG");
@@ -122,6 +122,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
                 //Win game popup end
 
             }
+            // If the last map is reached and the player has won
             else
             {
                 // Adds in a new end game victory panel to show the end of the entire campaign levels
