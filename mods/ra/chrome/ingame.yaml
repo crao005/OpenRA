@@ -77,7 +77,7 @@ Container@INGAME_ROOT:
 					Width:170
 					Height:25
 					Font:Bold
-					Text:Return to Main Menu
+					Text:Continue
 		SupportPowerBin@INGAME_POWERS_BIN:
 			X:0
 			Y:25
