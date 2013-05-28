@@ -142,11 +142,18 @@ namespace OpenRA.Mods.RA.Widgets.Logic
                     return state == WinState.Undefined ? "" :
                                     (state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS! CAMPAIGN COMPLETE!");
                     //return "CONGRATULATIONS! CAMPAIGN COMPLETE";
+
+                
                 };
 
                 gameendContinue.OnClick = () =>
                 {
-                    LeaveGame(gameendContinue, world);
+                    var state = world.LocalPlayer.WinState;
+                    if (state == WinState.Lost )
+                        LoadNextLevel(gameendContinue, world, OpenRA.FileFormats.Thirdparty.GammaCruxYamlHelper.getNextMap());                        
+                     else
+                        LeaveGame(gameendContinue, world);
+                   
                 };
             }
             //End
