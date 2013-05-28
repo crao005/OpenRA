@@ -15,6 +15,7 @@ using System.Linq;
 using OpenRA.Widgets;
 using System.Drawing;
 
+// This class outlines the settings for displaying Main Menu, panel and button functionality
 namespace OpenRA.Mods.RA.Widgets.Logic
 {
     public class IngameChromeLogic
@@ -24,6 +25,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
         [ObjectCreator.UseCtor]
         public IngameChromeLogic(World world)
         {
+            // Displays the Main Menu set up
             var r = Ui.Root;
             gameRoot = r.Get("INGAME_ROOT");
             var optionsBG = gameRoot.Get("INGAME_OPTIONS_BG");
@@ -78,7 +80,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
             optionsBG.Get("SURRENDER").IsVisible = () => (world.LocalPlayer != null && world.LocalPlayer.WinState == WinState.Undefined);
 
-
+            // This is the navigation panel at the end of each mission
             // Check if the next map isn't the last available and that the player has lost a mission then load the new mission
             if (!FileFormats.Thirdparty.GammaCruxYamlHelper.isLastMap() || (world.LocalPlayer.WinState == WinState.Lost))
             {
@@ -135,17 +137,20 @@ namespace OpenRA.Mods.RA.Widgets.Logic
                     return gameendContinue.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
                 };
 
-
+                // This text is displayed upon the outcome of the last mission played
+                // If the user loses: YOU ARE DEFEATED
+                // If the user wins: CONGRATULATIONS! CAMPAIGN COMPLETE!
                 gameendText.GetText = () =>
                 {
                     var state = world.LocalPlayer.WinState;
                     return state == WinState.Undefined ? "" :
                                     (state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS! CAMPAIGN COMPLETE!");
-                    //return "CONGRATULATIONS! CAMPAIGN COMPLETE";
-
                 
                 };
 
+                // Actions for the next location to load when the last mission is played:
+                // If it's won: The continue button leads the user back to the main menu
+                // If it's lost: The continue button leads the user to back to the last level
                 gameendContinue.OnClick = () =>
                 {
                     var state = world.LocalPlayer.WinState;
