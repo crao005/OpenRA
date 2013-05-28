@@ -135,9 +135,13 @@ namespace OpenRA.Mods.RA.Widgets.Logic
                     return gameendContinue.Visible && world.LocalPlayer != null && world.LocalPlayer.WinState != WinState.Undefined;
                 };
 
+
                 gameendText.GetText = () =>
                 {
-                    return "CONGRATULATIONS! CAMPAIGN COMPLETE";
+                    var state = world.LocalPlayer.WinState;
+                    return state == WinState.Undefined ? "" :
+                                    (state == WinState.Lost ? "YOU ARE DEFEATED" : " CONGRATULATIONS! CAMPAIGN COMPLETE!");
+                    //return "CONGRATULATIONS! CAMPAIGN COMPLETE";
                 };
 
                 gameendContinue.OnClick = () =>
